@@ -1,1 +1,23 @@
-Hello. I have made some updates to the readme to test github actions... again... and again.
+# SET08103 - Software Engineering Methods
+## Group Project
+
+- Master Build Status  
+  ![GitHub Actions Workflow Status](https://github.com/immatthewmccolm/SET08103-gp/actions/workflows/main.yml/badge.svg?branch=master)
+
+- Develop Build Status  
+  ![GitHub Actions Workflow Status](https://github.com/immatthewmccolm/SET08103-gp/actions/workflows/main.yml/badge.svg?branch=develop)
+
+- Licence  
+  [![LICENSE](https://img.shields.io/github/license/immatthewmccolm/SET08103-gp.svg)](https://github.com/immatthewmccolm/SET08103-gp/blob/master/LICENSE)
+
+- Release  
+  [![Releases](https://img.shields.io/github/v/release/immatthewmccolm/SET08103-gp?include_prereleases)](https://github.com/immatthewmccolm/SET08103-gp/releases)
+
+
+| **Group Name**    | Friday 4pm Group 8 |           |          |          |
+|-------------------|--------------------|-----------|----------|----------|
+| **Matric**        | **CR 1**           | **CR 2** | **CR 3** | **CR 4** |
+| **40712747 (MM)** | 25                 | 25        | 25       | 25       |
+| **40719743 (AS)** | 25                 | 25        | 25       | 25       |
+| **40737954 (JR)** | 25                 | 25        | 25       | 25       |
+| **40479323 (CP)** | 25                 | 25        | 25       | 25       |
