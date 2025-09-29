@@ -11,7 +11,8 @@
   [![LICENSE](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
 
 - Release  
-  [![Releases](https://img.shields.io/github/v/release/immatthewmccolm/SET08103-gp?include_prereleases)](https://github.com/immatthewmccolm/SET08103-gp/releases)
+  [![Release](https://img.shields.io/badge/release-NONE-purple.svg)](./releases)
+
 
 
 | **Group Name**    | Friday 4pm Group 8 |           |          |          |
