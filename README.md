@@ -11,7 +11,7 @@
   [![LICENSE](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
 
 - Release  
-  [![Release](https://img.shields.io/badge/release-NONE-purple.svg)](./releases)
+  [![Release](https://img.shields.io/badge/release-v0.1-alpha-1-purple.svg)](./releases)
 
 
 
