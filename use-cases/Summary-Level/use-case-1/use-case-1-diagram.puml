@@ -1,0 +1,17 @@
+' A .puml diagram showcasing use case 1
+@startuml
+
+actor orgMember as "Organisation Member"
+
+rectangle Database
+
+rectangle "Organisation System" {
+
+    usecase UC1 as "Produce reports about population data"
+
+    orgMember - UC1
+    UC1 - Database
+
+}
+
+@enduml
