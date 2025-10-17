@@ -13,6 +13,7 @@ import static com.napier.gp.Db.*;
 import java.sql.*;
 import java.util.List;
 import com.napier.gp.world.*;
+import static com.napier.gp.U3LanguagesReport.*;
 
 
 /**
@@ -38,7 +39,7 @@ public class App {
             String menuInput = getUserInput("Enter your menu choice");
 
             if (menuInput.equals("1")) {
-                // call method to run report
+                printU3LanguagesReport();
                 break; // exit the loop after a valid option
             } else {
                 System.out.println("Please enter a valid menu option.\n");

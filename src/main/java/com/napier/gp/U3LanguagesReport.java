@@ -9,7 +9,7 @@ import com.napier.gp.Db.*;
 import java.sql.*;
 
 public class U3LanguagesReport {
-    public void printU3LanguagesReport() {
+    static void printU3LanguagesReport() {
         try {
             Connection con = null;
 
