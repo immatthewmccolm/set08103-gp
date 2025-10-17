@@ -1,0 +1,22 @@
+' A .puml diagram showcasing use case 2
+@startuml
+
+actor orgMember as "Organisation Member"
+
+rectangle Database
+
+rectangle "Organisation System" {
+
+    usecase UC2 as "Produce reports about the
+    population about various sects of the world (from
+    the entire world, to the population of a single city)"
+
+    usecase UC1 as "Produce reports about population data"
+
+    orgMember - UC2
+    UC2 ..> UC1 : <<include>>
+    UC2 - Database
+
+}
+
+@enduml
