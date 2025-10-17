@@ -9,9 +9,8 @@ import com.napier.gp.Db.*;
 import java.sql.*;
 
 public class U3LanguagesReport {
-    static void printU3LanguagesReport() {
+    static void print(Connection con) {
         try {
-            Connection con = null;
 
             Statement stmt = con.createStatement();
 
@@ -20,10 +19,10 @@ public class U3LanguagesReport {
 
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            if (rset.next()) {
+            while (rset.next()) {
                 String language = rset.getString("Language");
                 int populationOfSpeakers = rset.getInt("Population of Speakers");
-                String percentageOfSpeakers = rset.getString("Percentage of Speakers");
+                String percentageOfSpeakers = rset.getString("Percentage of World Speakers");
 
                 System.out.println(language + " " + populationOfSpeakers + " " + percentageOfSpeakers);
             }
