@@ -13,17 +13,15 @@ public class U1PopulationDataReports {
          * to fulfil requirement of approximately 25% of all SQL statements
          * being implemented.
          */
-        public void printAllU1PopulationReports() {
-            printCountryPopulationLargestToSmallestInWorld();
-            printCountryPopulationLargestToSmallestInContinent();
-            printCountryPopulationLargestToSmallestInRegion();
+        static void printAll(Connection con) {
+            printCountryPopulationLargestToSmallestInWorld(con);
+            printCountryPopulationLargestToSmallestInContinent(con);
+            printCountryPopulationLargestToSmallestInRegion(con);
         }
 
         // Prints a report on all the countries in the world organised by largest population to smallest.
-        public void printCountryPopulationLargestToSmallestInWorld() {
+        static void printCountryPopulationLargestToSmallestInWorld(Connection con) {
             try {
-                Connection con = null;
-
                 Statement stmt = con.createStatement();
 
                 String strSelect =
@@ -31,8 +29,8 @@ public class U1PopulationDataReports {
 
                 ResultSet rset = stmt.executeQuery(strSelect);
 
-                if (rset.next()) {
-                    int code = rset.getInt("Code");
+                 while (rset.next()) {
+                    String code = rset.getString("Code");
                     String countryName = rset.getString("Name");
                     String continentName = rset.getString("Continent");
                     String regionName = rset.getString("Region");
@@ -60,9 +58,8 @@ public class U1PopulationDataReports {
         }
 
         // Prints a report on all the countries in a continent organised by largest population to smallest.
-        public void printCountryPopulationLargestToSmallestInContinent() {
+        static void printCountryPopulationLargestToSmallestInContinent(Connection con) {
             try {
-                Connection con = null;
 
                 Statement stmt = con.createStatement();
 
@@ -71,8 +68,8 @@ public class U1PopulationDataReports {
 
                 ResultSet rset = stmt.executeQuery(strSelect);
 
-                if (rset.next()) {
-                    int code = rset.getInt("Code");
+                while (rset.next()) {
+                    String code = rset.getString("Code");
                     String countryName = rset.getString("Name");
                     String continentName = rset.getString("Continent");
                     String regionName = rset.getString("Region");
@@ -100,9 +97,8 @@ public class U1PopulationDataReports {
         }
 
         // Prints a report on all the countries in a region organised by largest population to smallest.
-        public void printCountryPopulationLargestToSmallestInRegion() {
+        static void printCountryPopulationLargestToSmallestInRegion(Connection con) {
             try {
-                Connection con = null;
 
                 Statement stmt = con.createStatement();
 
@@ -111,8 +107,8 @@ public class U1PopulationDataReports {
 
                 ResultSet rset = stmt.executeQuery(strSelect);
 
-                if (rset.next()) {
-                    int code = rset.getInt("Code");
+                while (rset.next()) {
+                    String code = rset.getString("Code");
                     String countryName = rset.getString("Name");
                     String continentName = rset.getString("Continent");
                     String regionName = rset.getString("Region");
