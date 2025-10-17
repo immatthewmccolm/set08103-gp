@@ -8,12 +8,9 @@ import com.napier.gp.Db.*;
 
 import java.sql.*;
 
-// Contains all code related to Use-Case 3: Produce a report about the number of people who speak certain languages, to compare to data from other reports etc.
 public class U3LanguagesReport {
-    // Print the Use Case 3 report
-    public void printU3LanguagesReport() {
+    static void print(Connection con) {
         try {
-            Connection con = null;
 
             Statement stmt = con.createStatement();
 
@@ -22,10 +19,10 @@ public class U3LanguagesReport {
 
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            if (rset.next()) {
+            while (rset.next()) {
                 String language = rset.getString("Language");
                 int populationOfSpeakers = rset.getInt("Population of Speakers");
-                String percentageOfSpeakers = rset.getString("Percentage of Speakers");
+                String percentageOfSpeakers = rset.getString("Percentage of World Speakers");
 
                 System.out.println(language + " " + populationOfSpeakers + " " + percentageOfSpeakers);
             }
