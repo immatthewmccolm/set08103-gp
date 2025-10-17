@@ -8,22 +8,32 @@ import com.napier.gp.Db.*;
 
 import java.sql.*;
 
-// Contains all code related to Use-Case 2: Produce propulation reports as a baseline to compare to other reports etc.
+// Contains all code related to Use-Case 2: Produce population reports as a baseline to compare to other reports etc.
 public class U2PopulationReports {
     // Will call all Use Case 2 related reports in one function for ease of use
-    public void printAllU2PopulationReports() {
-        printWorldPopulation();
-        printContinentPopulations();
-        printRegionPopulations();
-        printCountryPopulations();
-        printDistrictPopulations();
-        printCityPopulations();
+    static void printAll(Connection con) {
+        System.out.println("\nWorld Population:");
+        printWorldPopulation(con);
+
+        System.out.println("\nContinental Populations:");
+        printContinentPopulations(con);
+
+        System.out.println("\nRegion Populations:");
+        printRegionPopulations(con);
+
+        System.out.println("\nRegion Populations:");
+        printCountryPopulations(con);
+
+        System.out.println("\nDistrict Populations:");
+        printDistrictPopulations(con);
+
+        System.out.println("\nCity Populations:");
+        printCityPopulations(con);
     }
 
     // Prints a report on the total population of the world
-    public void printWorldPopulation() {
+    static void printWorldPopulation(Connection con) {
         try {
-            Connection con = null;
 
             Statement stmt = con.createStatement();
 
@@ -43,10 +53,8 @@ public class U2PopulationReports {
     }
 
     // Prints a report on the total population of each of the 7 continents
-    public void printContinentPopulations() {
+    static void printContinentPopulations(Connection con) {
         try {
-            Connection con = null;
-
             Statement stmt = con.createStatement();
 
             String strSelect =
@@ -54,9 +62,9 @@ public class U2PopulationReports {
 
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            if (rset.next()) {
+            while (rset.next()) {
                 String continentName = rset.getString("Continent");
-                int population = rset.getInt("Population");
+                String population = rset.getString("Population");
 
                 System.out.println(continentName + " " + population);
             }
@@ -67,9 +75,8 @@ public class U2PopulationReports {
     }
 
     // Prints a report on the total population of each of the regions of the world
-    public void printRegionPopulations() {
+    static void printRegionPopulations(Connection con) {
         try {
-            Connection con = null;
 
             Statement stmt = con.createStatement();
 
@@ -78,7 +85,7 @@ public class U2PopulationReports {
 
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            if (rset.next()) {
+            while (rset.next()) {
                 String regionName = rset.getString("Region");
                 int population = rset.getInt("Population");
 
@@ -91,9 +98,8 @@ public class U2PopulationReports {
     }
 
     // Prints a report on the total population of each of the countries of the world
-    public void printCountryPopulations() {
+    static void printCountryPopulations(Connection con) {
         try {
-            Connection con = null;
 
             Statement stmt = con.createStatement();
 
@@ -102,7 +108,7 @@ public class U2PopulationReports {
 
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            if (rset.next()) {
+            while (rset.next()) {
                 String countryName = rset.getString("Country");
                 int population = rset.getInt("Population");
 
@@ -115,9 +121,8 @@ public class U2PopulationReports {
     }
 
     // Prints a report on the total population of each of the districts of the world
-    public void printDistrictPopulations() {
+    static void printDistrictPopulations(Connection con) {
         try {
-            Connection con = null;
 
             Statement stmt = con.createStatement();
 
@@ -126,7 +131,7 @@ public class U2PopulationReports {
 
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            if (rset.next()) {
+            while (rset.next()) {
                 String districtName = rset.getString("District");
                 int population = rset.getInt("Population");
 
@@ -139,9 +144,8 @@ public class U2PopulationReports {
     }
 
     // Prints a report on the total population of each of the cities of the world
-    public void printCityPopulations() {
+    static void printCityPopulations(Connection con) {
         try {
-            Connection con = null;
 
             Statement stmt = con.createStatement();
 
@@ -150,8 +154,8 @@ public class U2PopulationReports {
 
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            if (rset.next()) {
-                String cityName = rset.getString("City");
+            while (rset.next()) {
+                String cityName = rset.getString("Name");
                 int population = rset.getInt("Population");
 
                 System.out.println(cityName + " " + population);

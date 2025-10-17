@@ -1,12 +1,25 @@
 version: '3'
-services:
-  # Application Dockerfile is in same folder which is .
-  app:
-    build: .
 
-  # db is is db folder
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gp-app
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    # Optional: if your app needs environment variables for DB connection
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=example
+
   db:
     build: ./db
+    container_name: gp-db
     restart: always
     ports:
       - "33060:3306"
