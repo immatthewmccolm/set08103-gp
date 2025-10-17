@@ -6,7 +6,13 @@
 package com.napier.gp;
 import static com.napier.gp.Menu.*;
 import static com.napier.gp.UserInput.*;
+import static com.napier.gp.world.City.*;
+import static com.napier.gp.world.Country.*;
+import static com.napier.gp.world.CountryLanguage.*;
+import static com.napier.gp.Db.*;
 import java.sql.*;
+import java.util.List;
+import com.napier.gp.world.*;
 
 
 /**
@@ -14,62 +20,12 @@ import java.sql.*;
  */
 public class App {
     public static void main(String[] args) {
-        // Loads database
-        try
-        {
-            // Load Database driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        }
-        catch (ClassNotFoundException e)
-        {
-            System.out.println("Could not load SQL driver");
-            System.exit(-1);
-        }
 
-        // Connection to the database
-        Connection con = null;
-        int retries = 100;
-        for (int i = 0; i < retries; ++i)
-        {
-            System.out.println("Connecting to database...");
-            try
-            {
-                // Wait a bit for db to start
-                Thread.sleep(30000);
-                // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
-                System.out.println("Successfully connected");
-                // Wait a bit
-                Thread.sleep(10000);
-                // Exit for loop
-                break;
-            }
-            catch (SQLException sqle)
-            {
-                System.out.println("Failed to connect to database attempt " + Integer.toString(i));
-                System.out.println(sqle.getMessage());
-            }
-            catch (InterruptedException ie)
-            {
-                System.out.println("Thread interrupted? Should not happen.");
-            }
-        }
+        Db a = new Db();
 
-        if (con != null)
-        {
-            try
-            {
-                // Close connection
-                con.close();
-            }
-            catch (Exception e)
-            {
-                System.out.println("Error closing connection to database");
-            }
-        }
+        a.connect();
 
-
-/*
+        a.disconnect();
 
         // Prints Page Title
         pageTitle("Country Data Analysis Software");
@@ -88,6 +44,6 @@ public class App {
                 System.out.println("Please enter a valid menu option.\n");
             }
 
-        } while (true);*/
+        } while (true);
     }
 }
