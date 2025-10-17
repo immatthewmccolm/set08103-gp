@@ -14,7 +14,7 @@ rectangle "Organisation System" {
     usecase UC1 as "Produce reports about population data"
 
     orgMember - UC2
-    UC2 ..> UC1 : include
+    UC2 ..> UC1 : <<include>>
     UC2 - Database
 
 }
