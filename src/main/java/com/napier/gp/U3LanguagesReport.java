@@ -8,7 +8,9 @@ import com.napier.gp.Db.*;
 
 import java.sql.*;
 
+// Contains all code related to Use-Case 3: Produce a report about the number of people who speak certain languages, to compare to data from other reports etc.
 public class U3LanguagesReport {
+    // Print the Use Case 3 report
     public void printU3LanguagesReport() {
         try {
             Connection con = null;
