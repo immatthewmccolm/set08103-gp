@@ -14,6 +14,7 @@ import java.sql.*;
 import java.util.List;
 import com.napier.gp.world.*;
 import static com.napier.gp.U3LanguagesReport.*;
+import static com.napier.gp.U2PopulationReports.*;
 
 
 /**
@@ -28,8 +29,9 @@ public class App {
         // Connect to database
         a.connect();
 
+        System.out.println("\nLanguages Report:");
         U3LanguagesReport.print(a.getConnection());
-
+        U2PopulationReports.printAll(a.getConnection());
 
         // Disconnect from database
         a.disconnect();
