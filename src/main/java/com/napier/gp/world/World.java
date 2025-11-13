@@ -1,9 +1,15 @@
 package com.napier.gp.world;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class World {
-    private World() { }
+    private World() {
+        _countries = new ArrayList<>();
+        _cities = new ArrayList<>();
+        _languages = new ArrayList<>();
+    }
     private static World _instance;
 
     public static World getInstance() {

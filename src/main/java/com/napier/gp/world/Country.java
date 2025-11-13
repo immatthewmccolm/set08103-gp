@@ -1,5 +1,7 @@
 package com.napier.gp.world;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Country {
@@ -38,6 +40,8 @@ public class Country {
         _headOfState = headOfState;
         _capital = capital;
         _code2 = code2;
+        _cities = new ArrayList<>();
+        _languages = new ArrayList<>();
     }
 
     public String getCode() {

@@ -33,6 +33,7 @@ public class PopulateWorld {
                 int capital = resultSet.getInt("Capital");
                 String code2 = resultSet.getString("Code2");
 
+
                 World.getInstance().addCountry(new Country(code, countryName, continentName,
                         regionName, surfaceArea, indepYear, countryPopulation,
                         lifeExpectancy, gnp, gnpOld, localName, governmentForm,
@@ -65,13 +66,9 @@ public class PopulateWorld {
                 World.getInstance().addLanguage(new CountryLanguage(countryCode, language,
                         isOfficial, percentage));
             }
-
-            for(Country country : World.getInstance().getCountries()){
-                System.out.println(country);
-            }
         }
         catch (Exception e){
-
+            System.out.println(e.getMessage());
         }
 
     }
