@@ -51,5 +51,5 @@ None.
 
 ## SCHEDULE
 
-**DUE DATE**: ~25% Ready for Code rewiew 2/Second release
+**DUE DATE**: ~25% of All SQL (Some 1, All 2+3) Ready for Code rewiew 2/Second release
 17/10/2025

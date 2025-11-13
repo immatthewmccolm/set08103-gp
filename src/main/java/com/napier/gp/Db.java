@@ -143,7 +143,7 @@ public class Db {
             if (rset.next()) {
                 int id = rset.getInt("ID");
                 String name = rset.getString("Name");
-                String countryCode = rset.getString("_countryCode");
+                String countryCode = rset.getString("CountryCode");
                 String district = rset.getString("District");
                 int population = rset.getInt("Population");
 
@@ -157,9 +157,5 @@ public class Db {
             return null;
         }
         return cities;
-    }
-
-    public void populateWorld() {
-        PopulateWorld.TryPopulateWorld(con);
     }
 }

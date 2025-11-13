@@ -25,8 +25,6 @@ public class App {
 
         a.connect();
 
-        a.populateWorld();
-
         a.disconnect();
 
         // Prints Page Title
