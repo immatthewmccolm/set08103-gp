@@ -8,14 +8,14 @@ public class City {
     public String Name;
     public String CountryCode;
     public String District;
-    public int population;
+    public int Population;
 
     public City(int ID, String name, String countryCode, String district, int population) {
         this.ID = ID;
         Name = name;
         CountryCode = countryCode;
         District = district;
-        this.population = population;
+        this.Population = population;
     }
 
     public int getID() {
@@ -51,11 +51,11 @@ public class City {
     }
 
     public int getPopulation() {
-        return population;
+        return Population;
     }
 
     public void setPopulation(int population) {
-        this.population = population;
+        this.Population = population;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class City {
                 ", Name='" + Name + '\'' +
                 ", CountryCode='" + CountryCode + '\'' +
                 ", District='" + District + '\'' +
-                ", population=" + population +
+                ", population=" + Population +
                 '}';
     }
 }
