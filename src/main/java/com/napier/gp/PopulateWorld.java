@@ -66,10 +66,27 @@ public class PopulateWorld {
                 World.getInstance().addLanguage(new CountryLanguage(countryCode, language,
                         isOfficial, percentage));
             }
+
+            PopulateCitiesAndLanguages();
         }
-        catch (Exception e){
+        catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    static void PopulateCitiesAndLanguages() {
+        for(Country country : World.getInstance().getCountries()) {
+            for(City city : World.getInstance().getCities()) {
+                if(city.getCountryCode().equals(country.getCode())) {
+                    country.addCity(city);
+                }
+            }
+            for(CountryLanguage language : World.getInstance().getLanguages()) {
+                if(language.getCountryCode().equals(country.getCode())) {
+                    country.addLanguage(language);
+                }
+            }
+        }
     }
 }

@@ -191,11 +191,11 @@ public class Country {
                 ", Code2='" + _code2 + '\'';
 
         for(City city : _cities){
-            output += ", City='" + city.toString() + '\'';
+            output += ", '" + city.toString() + '\'';
         }
 
         for(CountryLanguage language : _languages){
-            output += ", Language'" + language.toString() + '\'';
+            output += ", '" + language.toString() + '\'';
         }
 
         return output;

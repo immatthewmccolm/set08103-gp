@@ -31,6 +31,9 @@ public class App {
         a.connect();
 
         a.TryPopulateWorld();
+        for(Country country : World.getInstance().getCountries()) {
+            System.out.println(country);
+        }
 
 //        U1PopulationDataReports.printAll(a.getConnection());
 //

@@ -60,7 +60,6 @@ public class City {
         return "World{" +
                 "ID=" + _id +
                 ", Name='" + _name + '\'' +
-                ", CountryCode='" + _countryCode + '\'' +
                 ", District='" + _district + '\'' +
                 ", Population=" + _population +
                 '}';

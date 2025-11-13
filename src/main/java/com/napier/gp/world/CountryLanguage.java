@@ -48,7 +48,6 @@ public class CountryLanguage {
     @Override
     public String toString() {
         return "CountryLanguage{" +
-                "CountryCode='" + _countryCode + '\'' +
                 ", Language='" + _language + '\'' +
                 ", IsOfficial='" + _isOfficial + '\'' +
                 ", Percentage=" + _percentage +
