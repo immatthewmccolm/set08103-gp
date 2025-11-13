@@ -5,6 +5,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+
+    #These 2 lines allow us to use an interactive terminal (e.g. input enabled)
+    stdin_open: true
+    tty: true
+
     container_name: gp-app
     depends_on:
       - db
