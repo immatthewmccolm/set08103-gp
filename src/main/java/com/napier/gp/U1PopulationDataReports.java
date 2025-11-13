@@ -3,57 +3,40 @@ package com.napier.gp;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
+
+import com.napier.gp.world.City;
+import com.napier.gp.world.Country;
+import com.napier.gp.world.CountryLanguage;
+import com.napier.gp.world.World;
 
 // Contains all code related to Use-Case 1: Produce propulation data reports, so they can be used by the organisation etc.
 public class U1PopulationDataReports {
 
         // Will call all Use Case 1 related reports in one function for ease of use
-
-        /* For Code Review 2: Some SQL statements from Use Case 1 implemented
-         * to fulfil requirement of approximately 25% of all SQL statements
-         * being implemented.
-         */
         static void printAll(Connection con) {
-            printCountryPopulationLargestToSmallestInWorld(con);
+            printCountryPopulationLargestToSmallestInWorld();
             printCountryPopulationLargestToSmallestInContinent(con);
             printCountryPopulationLargestToSmallestInRegion(con);
         }
 
         // Prints a report on all the countries in the world organised by largest population to smallest.
-        static void printCountryPopulationLargestToSmallestInWorld(Connection con) {
-            try {
-                Statement stmt = con.createStatement();
+        static void printCountryPopulationLargestToSmallestInWorld() {
+            List<Country> countries = World.getInstance().getCountries();
+            Country temp;
 
-                String strSelect =
-                        "SELECT * FROM country ORDER BY population DESC";
-
-                ResultSet rset = stmt.executeQuery(strSelect);
-
-                 while (rset.next()) {
-                    String code = rset.getString("Code");
-                    String countryName = rset.getString("Name");
-                    String continentName = rset.getString("Continent");
-                    String regionName = rset.getString("Region");
-                    int surfaceArea =  rset.getInt("SurfaceArea");
-                    int indepYear =  rset.getInt("IndepYear");
-                    int countryPopulation = rset.getInt("Population");
-                    double lifeExpectancy = rset.getDouble("LifeExpectancy");
-                    double gnp = rset.getDouble("GNP");
-                    double gnpOld = rset.getDouble("GNPOld");
-                    String localName = rset.getString("LocalName");
-                    String governmentForm = rset.getString("GovernmentForm");
-                    String headOfState = rset.getString("HeadOfState");
-                    int capital = rset.getInt("Capital");
-                    String code2 = rset.getString("Code2");
-
-                    System.out.println(code + " " + countryName + " " + continentName + " " + regionName + " "
-                            + surfaceArea + " " + indepYear + " " + countryPopulation + " " + lifeExpectancy + " "
-                            + gnp + " " + gnpOld + " " + localName + " " + governmentForm + " " + headOfState + " "
-                            + capital + " " + code2);
+            for(int i = 0; i < countries.size() - 1; i++) {
+                for(int j = 0; j < countries.size() - i - 1; j++){
+                    if(countries.get(j).getPopulation() < countries.get(j + 1).getPopulation()) {
+                        temp = countries.get(j);
+                        countries.set(j, countries.get(j + 1));
+                        countries.set(j + 1, temp);
+                    }
                 }
+            }
 
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            for(Country country : countries) {
+                System.out.println(country.getName() + " " + country.getPopulation());
             }
         }
 

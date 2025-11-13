@@ -30,10 +30,11 @@ public class App {
         // Connect to database
         a.connect();
 
+        // Attempts to populate the World class with the data from the database
         a.TryPopulateWorld();
-        for(Country country : World.getInstance().getCountries()) {
-            System.out.println(country);
-        }
+
+        // Disconnect from the database
+        a.disconnect();
 
 //        U1PopulationDataReports.printAll(a.getConnection());
 //
@@ -59,84 +60,58 @@ public class App {
         menuItem(10, "U3 Language Report");
 
         // Gets user input and loads the appropriate method, otherwise loops until a valid input is received
-//        while (true) {
-//            String menuInput = UserInput.getUserInput("Enter your menu choice (0 to exit)");
-//
-//            switch (menuInput) {
-//                case "0":
-//                    System.out.println("Exiting... Goodbye!");
-//                    a.disconnect();
-//                    return; // exits the method cleanly
-//
-//                case "1":
-//                    U1PopulationDataReports.printCountryPopulationLargestToSmallestInWorld();
-//                    break;
-//
-//                case "2":
-//                    U1PopulationDataReports.printCountryPopulationLargestToSmallestInContinent(a.getConnection());
-//                    break;
-//
-//                case "3":
-//                    U1PopulationDataReports.printCountryPopulationLargestToSmallestInRegion(a.getConnection());
-//                    break;
-//
-//                case "4":
-//                    U2PopulationReports.printWorldPopulation(a.getConnection());
-//                    break;
-//
-//                case "5":
-//                    U2PopulationReports.printContinentPopulations(a.getConnection());
-//                    break;
-//
-//                case "6":
-//                    U2PopulationReports.printRegionPopulations(a.getConnection());
-//                    break;
-//
-//                case "7":
-//                    U2PopulationReports.printCountryPopulations(a.getConnection());
-//                    break;
-//
-//                case "8":
-//                    U2PopulationReports.printDistrictPopulations(a.getConnection());
-//                    break;
-//
-//                case "9":
-//                    U2PopulationReports.printCityPopulations(a.getConnection());
-//                    break;
-//
-//                case "10":
-//                    U3LanguagesReport.print(a.getConnection());
-//                    break;
-//
-//                default:
-//                    System.out.println("Please enter a valid menu option.\n");
-//                    break;
-//            }
-//        }
+        while (true) {
+            String menuInput = UserInput.getUserInput("Enter your menu choice (0 to exit)");
 
+            switch (menuInput) {
+                case "0":
+                    System.out.println("Exiting... Goodbye!");
+                    return; // exits the method cleanly
 
-        // Disconnect from database
+                case "1":
+                    U1PopulationDataReports.printCountryPopulationLargestToSmallestInWorld();
+                    break;
+/*
+                case "2":
+                    U1PopulationDataReports.printCountryPopulationLargestToSmallestInContinent(a.getConnection());
+                    break;
 
+                case "3":
+                    U1PopulationDataReports.printCountryPopulationLargestToSmallestInRegion(a.getConnection());
+                    break;
 
+                case "4":
+                    U2PopulationReports.printWorldPopulation(a.getConnection());
+                    break;
 
+                case "5":
+                    U2PopulationReports.printContinentPopulations(a.getConnection());
+                    break;
 
+                case "6":
+                    U2PopulationReports.printRegionPopulations(a.getConnection());
+                    break;
 
+                case "7":
+                    U2PopulationReports.printCountryPopulations(a.getConnection());
+                    break;
 
+                case "8":
+                    U2PopulationReports.printDistrictPopulations(a.getConnection());
+                    break;
 
+                case "9":
+                    U2PopulationReports.printCityPopulations(a.getConnection());
+                    break;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                case "10":
+                    U3LanguagesReport.print(a.getConnection());
+                    break;
+*/
+                default:
+                    System.out.println("Please enter a valid menu option.\n");
+                    break;
+            }
+        }
     }
 }
