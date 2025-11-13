@@ -1,10 +1,10 @@
-# USE CASE 1: Produce reports about population data
+# USE CASE 1: Produce reports about _population data
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an organisation member, I want to be able to view reports of population data, so that I can use those reports for my organisation.
+As an organisation member, I want to be able to view reports of _population data, so that I can use those reports for my organisation.
 
 ### Scope
 
@@ -38,7 +38,7 @@ A request for reports is sent to an organisation member.
 
 1. Organisation member requests reports.
 2. Reports received. Information is provided.
-3. An organisation member takes next steps to deal with information (compare with information about percentage of languages spoken, total population etc.)
+3. An organisation member takes next steps to deal with information (compare with information about percentage of languages spoken, total _population etc.)
 
 ## EXTENSIONS
 

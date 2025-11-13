@@ -143,7 +143,7 @@ public class Db {
             if (rset.next()) {
                 int id = rset.getInt("ID");
                 String name = rset.getString("Name");
-                String countryCode = rset.getString("CountryCode");
+                String countryCode = rset.getString("_countryCode");
                 String district = rset.getString("District");
                 int population = rset.getInt("Population");
 

@@ -1,57 +1,57 @@
 package com.napier.gp.world;
 
 public class CountryLanguage {
-    public String CountryCode;
-    public String Language;
-    public String IsOfficial;
-    public Double Percentage;
+    private String _countryCode;
+    private String _language;
+    private String _isOfficial;
+    private Double _percentage;
 
     public CountryLanguage(String countryCode, String language, String isOfficial, Double percentage) {
-        CountryCode = countryCode;
-        Language = language;
-        IsOfficial = isOfficial;
-        Percentage = percentage;
+        _countryCode = countryCode;
+        _language = language;
+        _isOfficial = isOfficial;
+        _percentage = percentage;
     }
 
     public String getCountryCode() {
-        return CountryCode;
+        return _countryCode;
     }
 
     public void setCountryCode(String countryCode) {
-        CountryCode = countryCode;
+        _countryCode = countryCode;
     }
 
     public String getLanguage() {
-        return Language;
+        return _language;
     }
 
     public void setLanguage(String language) {
-        Language = language;
+        _language = language;
     }
 
     public String getIsOfficial() {
-        return IsOfficial;
+        return _isOfficial;
     }
 
     public void setIsOfficial(String isOfficial) {
-        IsOfficial = isOfficial;
+        _isOfficial = isOfficial;
     }
 
     public Double getPercentage() {
-        return Percentage;
+        return _percentage;
     }
 
     public void setPercentage(Double percentage) {
-        Percentage = percentage;
+        _percentage = percentage;
     }
 
     @Override
     public String toString() {
         return "CountryLanguage{" +
-                "CountryCode='" + CountryCode + '\'' +
-                ", Language='" + Language + '\'' +
-                ", IsOfficial='" + IsOfficial + '\'' +
-                ", Percentage=" + Percentage +
+                "CountryCode='" + _countryCode + '\'' +
+                ", Language='" + _language + '\'' +
+                ", IsOfficial='" + _isOfficial + '\'' +
+                ", Percentage=" + _percentage +
                 '}';
     }
 }

@@ -25,46 +25,46 @@ Group times are available [here](groups).
 
 You will work on the project as a Scrum team.  Details on Scrum are provided in [Lecture 2](../lectures/lecture02), including an FAQ on how to apply Scrum in the module.
 
-You work for an organisation that requires reporting on population information.  You have been tasked with designing and implementing a new system to allow easy access to this population information.  The organisation has provided you with an SQL database to work from available [here](https://downloads.mysql.com/docs/world-db.zip).
+You work for an organisation that requires reporting on _population information.  You have been tasked with designing and implementing a new system to allow easy access to this _population information.  The organisation has provided you with an SQL database to work from available [here](https://downloads.mysql.com/docs/world-db.zip).
 
 The organisation has asked for the following reports to be generated:
 
-- All the countries in the world organised by largest population to smallest.
-- All the countries in a continent organised by largest population to smallest.
-- All the countries in a region organised by largest population to smallest.
+- All the countries in the world organised by largest _population to smallest.
+- All the countries in a continent organised by largest _population to smallest.
+- All the countries in a region organised by largest _population to smallest.
 - The top `N` populated countries in the world where `N` is provided by the user.
 - The top `N` populated countries in a continent where `N` is provided by the user.
 - The top `N` populated countries in a region where `N` is provided by the user.
-- All the cities in the world organised by largest population to smallest.
-- All the cities in a continent organised by largest population to smallest.
-- All the cities in a region organised by largest population to smallest.
-- All the cities in a country organised by largest population to smallest.
-- All the cities in a district organised by largest population to smallest.
+- All the cities in the world organised by largest _population to smallest.
+- All the cities in a continent organised by largest _population to smallest.
+- All the cities in a region organised by largest _population to smallest.
+- All the cities in a country organised by largest _population to smallest.
+- All the cities in a _district organised by largest _population to smallest.
 - The top `N` populated cities in the world where `N` is provided by the user.
 - The top `N` populated cities in a continent where `N` is provided by the user.
 - The top `N` populated cities in a region where `N` is provided by the user.
 - The top `N` populated cities in a country where `N` is provided by the user.
-- The top `N` populated cities in a district where `N` is provided by the user.
-- All the capital cities in the world organised by largest population to smallest.
-- All the capital cities in a continent organised by largest population to smallest.
+- The top `N` populated cities in a _district where `N` is provided by the user.
+- All the capital cities in the world organised by largest _population to smallest.
+- All the capital cities in a continent organised by largest _population to smallest.
 - All the capital cities in a region organised by largest to smallest.
 - The top `N` populated capital cities in the world  where `N` is provided by the user.
 - The top `N` populated capital cities in a continent where `N` is provided by the user.
 - The top `N` populated capital cities in a region where `N` is provided by the user.
-- The population of people, people living in cities, and people not living in cities in each continent.
-- The population of people, people living in cities, and people not living in cities in each region.
-- The population of people, people living in cities, and people not living in cities in each country.
+- The _population of people, people living in cities, and people not living in cities in each continent.
+- The _population of people, people living in cities, and people not living in cities in each region.
+- The _population of people, people living in cities, and people not living in cities in each country.
 
 Additionally, the following information should be accessible to the organisation:
 
-- The population of the world.
-- The population of a continent.
-- The population of a region.
-- The population of a country.
-- The population of a district.
-- The population of a city.
+- The _population of the world.
+- The _population of a continent.
+- The _population of a region.
+- The _population of a country.
+- The _population of a _district.
+- The _population of a city.
 
-Finally, the organisation has asked if it is possible to provide the number of people who speak the following the following languages from greatest number to smallest, including the percentage of the world population:
+Finally, the organisation has asked if it is possible to provide the number of people who speak the following the following languages from greatest number to smallest, including the percentage of the world _population:
 
 - Chinese.
 - English.
@@ -102,12 +102,12 @@ A capital city report requires the following columns:
 
 ### Population Report
 
-For the population reports, the following information is requested:
+For the _population reports, the following information is requested:
 
 - The name of the continent/region/country.
-- The total population of the continent/region/country.
-- The total population of the continent/region/country living in cities (including a %).
-- The total population of the continent/region/country not living in cities (including a %).
+- The total _population of the continent/region/country.
+- The total _population of the continent/region/country living in cities (including a %).
+- The total _population of the continent/region/country not living in cities (including a %).
 
 ## Group Submission
 

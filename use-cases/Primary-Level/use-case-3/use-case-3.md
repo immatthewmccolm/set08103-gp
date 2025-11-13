@@ -4,7 +4,7 @@
 
 ### Goal in Context
 
-As an organisation member, I want to be able to view the number of people that speak certain languages, so that I can use this information alongside the reports. These should be ordered from greatest to smallest, including a percentage of the world population.
+As an organisation member, I want to be able to view the number of people that speak certain languages, so that I can use this information alongside the reports. These should be ordered from greatest to smallest, including a percentage of the world _population.
 
 ### Scope
 
@@ -39,7 +39,7 @@ A request for reports is sent to an organisation member.
 
 1. Organisation member requests reports, either after receiving some/or all of the reports from use case 1 or an independent request.
 2. Reports received. Information is provided.
-3. An organisation member takes next steps to deal with information (compare with information about population reports, other reports about continents and countries etc.)
+3. An organisation member takes next steps to deal with information (compare with information about _population reports, other reports about continents and countries etc.)
 
 ## EXTENSIONS
 

@@ -3,68 +3,66 @@
 package com.napier.gp.world;
 
 public class City {
-    public int ID;
-    public String Name;
-    public String CountryCode;
-    public String District;
-    public int population;
+    private int _id;
+    private String _name;
+    private String _countryCode;
+    private String _district;
+    private int _population;
 
     public City(int ID, String name, String countryCode, String district, int population) {
-        this.ID = ID;
-        Name = name;
-        CountryCode = countryCode;
-        District = district;
-        this.population = population;
+        _id = ID;
+        _name = name;
+        _countryCode = countryCode;
+        _district = district;
+        _population = population;
     }
 
     public int getID() {
-        return ID;
+        return _id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
+    public void setID(int ID) { _id = ID; }
 
     public String getName() {
-        return Name;
+        return _name;
     }
 
     public void setName(String name) {
-        Name = name;
+        _name = name;
     }
 
     public String getCountryCode() {
-        return CountryCode;
+        return _countryCode;
     }
 
     public void setCountryCode(String countryCode) {
-        CountryCode = countryCode;
+        _countryCode = countryCode;
     }
 
     public String getDistrict() {
-        return District;
+        return _district;
     }
 
     public void setDistrict(String district) {
-        District = district;
+        _district = district;
     }
 
     public int getPopulation() {
-        return population;
+        return _population;
     }
 
     public void setPopulation(int population) {
-        this.population = population;
+        _population = population;
     }
 
     @Override
     public String toString() {
         return "World{" +
-                "ID=" + ID +
-                ", Name='" + Name + '\'' +
-                ", CountryCode='" + CountryCode + '\'' +
-                ", District='" + District + '\'' +
-                ", population=" + population +
+                "ID=" + _id +
+                ", Name='" + _name + '\'' +
+                ", CountryCode='" + _countryCode + '\'' +
+                ", District='" + _district + '\'' +
+                ", Population=" + _population +
                 '}';
     }
 }

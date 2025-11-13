@@ -1,167 +1,193 @@
 package com.napier.gp.world;
 
-public class Country {
-    public String Code;
-    public String Name;
-    public String Continent;
-    public String Region;
-    public Double SurfaceArea;
-    public int IndepYear;
-    public Double LifeExpectancy;
-    public Double GNP;
-    public Double GNPOld;
-    public String LocalName;
-    public String GovernmentForm;
-    public String HeadOfState;
-    public int Capital;
-    public String Code2;
+import java.util.List;
 
-    public Country(String code, String name, String continent, String region, Double surfaceArea, int indepYear, Double lifeExpectancy, Double GNP, Double GNPOld, String localName, String governmentForm, String headOfState, int capital, String code2) {
-        Code = code;
-        Name = name;
-        Continent = continent;
-        Region = region;
-        SurfaceArea = surfaceArea;
-        IndepYear = indepYear;
-        LifeExpectancy = lifeExpectancy;
-        this.GNP = GNP;
-        this.GNPOld = GNPOld;
-        LocalName = localName;
-        GovernmentForm = governmentForm;
-        HeadOfState = headOfState;
-        Capital = capital;
-        Code2 = code2;
+public class Country {
+    private String _code;
+    private String _name;
+    private String _continent;
+    private String _region;
+    private Double _surfaceArea;
+    private int _indepYear;
+    private Double _lifeExpectancy;
+    private Double _gnp;
+    private Double _gnpOld;
+    private String _localName;
+    private String _governmentForm;
+    private String _headOfState;
+    private int _capital;
+    private String _code2;
+
+    private List<City> _cities;
+    private List<CountryLanguage> _languages;
+
+    public Country(String code, String name, String continent, String region, Double surfaceArea, int indepYear, Double lifeExpectancy, Double gnp, Double gnpOld, String localName, String governmentForm, String headOfState, int capital, String code2) {
+        _code = code;
+        _name = name;
+        _continent = continent;
+        _region = region;
+        _surfaceArea = surfaceArea;
+        _indepYear = indepYear;
+        _lifeExpectancy = lifeExpectancy;
+        _gnp = gnp;
+        _gnpOld = gnpOld;
+        _localName = localName;
+        _governmentForm = governmentForm;
+        _headOfState = headOfState;
+        _capital = capital;
+        _code2 = code2;
     }
 
     public String getCode() {
-        return Code;
+        return _code;
     }
 
     public void setCode(String code) {
-        Code = code;
+        _code = code;
     }
 
     public String getName() {
-        return Name;
+        return _name;
     }
 
     public void setName(String name) {
-        Name = name;
+        _name = name;
     }
 
     public String getContinent() {
-        return Continent;
+        return _continent;
     }
 
     public void setContinent(String continent) {
-        Continent = continent;
+        _continent = continent;
     }
 
     public String getRegion() {
-        return Region;
+        return _region;
     }
 
     public void setRegion(String region) {
-        Region = region;
+        _region = region;
     }
 
     public Double getSurfaceArea() {
-        return SurfaceArea;
+        return _surfaceArea;
     }
 
     public void setSurfaceArea(Double surfaceArea) {
-        SurfaceArea = surfaceArea;
+        _surfaceArea = surfaceArea;
     }
 
     public int getIndepYear() {
-        return IndepYear;
+        return _indepYear;
     }
 
     public void setIndepYear(int indepYear) {
-        IndepYear = indepYear;
+        _indepYear = indepYear;
     }
 
     public Double getLifeExpectancy() {
-        return LifeExpectancy;
+        return _lifeExpectancy;
     }
 
     public void setLifeExpectancy(Double lifeExpectancy) {
-        LifeExpectancy = lifeExpectancy;
+        _lifeExpectancy = lifeExpectancy;
     }
 
     public Double getGNP() {
-        return GNP;
+        return _gnp;
     }
 
     public void setGNP(Double GNP) {
-        this.GNP = GNP;
+        this._gnp = GNP;
     }
 
     public Double getGNPOld() {
-        return GNPOld;
+        return _gnpOld;
     }
 
     public void setGNPOld(Double GNPOld) {
-        this.GNPOld = GNPOld;
+        this._gnpOld = GNPOld;
     }
 
     public String getLocalName() {
-        return LocalName;
+        return _localName;
     }
 
     public void setLocalName(String localName) {
-        LocalName = localName;
+        _localName = localName;
     }
 
     public String getGovernmentForm() {
-        return GovernmentForm;
+        return _governmentForm;
     }
 
     public void setGovernmentForm(String governmentForm) {
-        GovernmentForm = governmentForm;
+        _governmentForm = governmentForm;
     }
 
     public String getHeadOfState() {
-        return HeadOfState;
+        return _headOfState;
     }
 
     public void setHeadOfState(String headOfState) {
-        HeadOfState = headOfState;
+        _headOfState = headOfState;
     }
 
     public int getCapital() {
-        return Capital;
+        return _capital;
     }
 
     public void setCapital(int capital) {
-        Capital = capital;
+        _capital = capital;
     }
 
     public String getCode2() {
-        return Code2;
+        return _code2;
     }
 
     public void setCode2(String code2) {
-        Code2 = code2;
+        _code2 = code2;
     }
+
+    public List<City> getCities() { return _cities; }
+
+    public void addCity(City city) { _cities.add(city); }
+
+    public void removeCity(City city) { _cities.remove(city); }
+
+    public List<CountryLanguage> getLanguages() { return _languages; }
+
+    public void addLanguage(CountryLanguage language) { _languages.add(language); }
+
+    public void removeLanguage(CountryLanguage language) { _languages.remove(language); }
 
     @Override
     public String toString() {
-        return "Country{" +
-                "Code='" + Code + '\'' +
-                ", Name='" + Name + '\'' +
-                ", Continent='" + Continent + '\'' +
-                ", Region='" + Region + '\'' +
-                ", SurfaceArea=" + SurfaceArea +
-                ", IndepYear=" + IndepYear +
-                ", LifeExpectancy=" + LifeExpectancy +
-                ", GNP=" + GNP +
-                ", GNPOld=" + GNPOld +
-                ", LocalName='" + LocalName + '\'' +
-                ", GovernmentForm='" + GovernmentForm + '\'' +
-                ", HeadOfState='" + HeadOfState + '\'' +
-                ", Capital=" + Capital +
-                ", Code2='" + Code2 + '\'' +
-                '}';
+        String output = "Country{" +
+                "Code='" + _code + '\'' +
+                ", Name='" + _name + '\'' +
+                ", Continent='" + _continent + '\'' +
+                ", Region='" + _region + '\'' +
+                ", SurfaceArea=" + _surfaceArea +
+                ", IndepYear=" + _indepYear +
+                ", LifeExpectancy=" + _lifeExpectancy +
+                ", GNP=" + _gnp +
+                ", GNPOld=" + _gnpOld +
+                ", LocalName='" + _localName + '\'' +
+                ", GovernmentForm='" + _governmentForm + '\'' +
+                ", HeadOfState='" + _headOfState + '\'' +
+                ", Capital=" + _capital +
+                ", Code2='" + _code2 + '\'';
+
+        for(City city : _cities){
+            output += ", City='" + city.toString() + '\'';
+        }
+
+        for(CountryLanguage language : _languages){
+            output += ", Language'" + language.toString() + '\'';
+        }
+
+        return output;
     }
 }

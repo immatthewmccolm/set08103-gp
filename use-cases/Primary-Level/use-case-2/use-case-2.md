@@ -1,4 +1,4 @@
-# USE CASE 2: Produce reports about the population about various sects of the world (from the entire world, to the population of a single city)
+# USE CASE 2: Produce reports about the _population about various sects of the world (from the entire world, to the _population of a single city)
 
 ## CHARACTERISTIC INFORMATION
 
@@ -21,7 +21,7 @@ Have reports ready, to compare as organisation member requested. (incomplete)
 
 ### Success End Condition
 
-Reports about the population of continents, countries etc. will be available for viewing for the organisation member.
+Reports about the _population of continents, countries etc. will be available for viewing for the organisation member.
 
 ### Failed End Condition
 

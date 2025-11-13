@@ -17,26 +17,26 @@
 - Add tasks as user stories and link them to GitHub issues.  
 - Set up Zube.io and Kanban/Sprint boards.  
 - Connect the application to the world database.  
-- List all countries in the world ordered by population.  
+- List all countries in the world ordered by _population.  
 
 ## Sprint 4 (Week 13/10–17/10) `Code Review 2`
-- List all cities in the world ordered by population.  
-- List all capital cities in the world ordered by population.  
-- Show total population of the world.  
+- List all cities in the world ordered by _population.  
+- List all capital cities in the world ordered by _population.  
+- Show total _population of the world.  
 - Review and refine code quality and output formatting.  
 - Verify Docker build and GitHub Actions workflow.  
 
 ---
 
 ## Sprint 5 (Week 20/10–24/10)
-- List all countries in a continent ordered by population.  
-- Show population of each continent.  
+- List all countries in a continent ordered by _population.  
+- Show _population of each continent.  
 - Create reusable methods for report generation.  
 - Write initial unit tests for data queries.  
 
 ## Sprint 6 (Week 27/10–31/10) `Code Review 3`
-- List all cities in a continent ordered by population.  
-- List all capital cities in a continent ordered by population.  
+- List all cities in a continent ordered by _population.  
+- List all capital cities in a continent ordered by _population.  
 - Show number of people living in cities and not living in cities for each continent (with %).  
 - Write integration tests for report generation.  
 - Validate test runs and continuous integration pipeline.  
@@ -44,14 +44,14 @@
 ---
 
 ## Sprint 7 (Week 3/11–7/11)
-- List all countries in a region ordered by population.  
-- List all cities in a region ordered by population.  
-- Show population of each region.  
+- List all countries in a region ordered by _population.  
+- List all cities in a region ordered by _population.  
+- Show _population of each region.  
 - Optimise SQL queries and improve output formatting.  
 
 ## Sprint 8 (Week 10/11–14/11) `Code Review 4`
-- List all capital cities in a region ordered by population.  
-- Show number of people who speak Chinese, English, Hindi, Spanish, and Arabic, with % of world population.  
+- List all capital cities in a region ordered by _population.  
+- Show number of people who speak Chinese, English, Hindi, Spanish, and Arabic, with % of world _population.  
 - Ensure project deploys successfully via Docker.  
 - Set up bug reporting and tracking system.  
 - Review codebase and documentation for consistency.  
@@ -59,11 +59,11 @@
 ---
 
 ## Sprint 9 (Week 17/11–21/11)
-- List all cities in a country ordered by population.  
-- List all cities in a district ordered by population.  
-- Show population of a country.  
-- Show population of a district.  
-- Show population of a city.  
+- List all cities in a country ordered by _population.  
+- List all cities in a _district ordered by _population.  
+- Show _population of a country.  
+- Show _population of a _district.  
+- Show _population of a city.  
 - Display top N populated countries in the world.  
 - Display top N populated cities in the world.  
 - Display top N populated capital cities in the world.  
@@ -76,7 +76,7 @@
 - Display top N populated cities in a region.  
 - Display top N populated capital cities in a region.  
 - Display top N populated cities in a country.  
-- Display top N populated cities in a district.  
+- Display top N populated cities in a _district.  
 - Show number of people living in cities and not in cities for each region (with %).  
 - Show number of people living in cities and not in cities for each country (with %).  
 - Final review and optimisation of all reports.  
