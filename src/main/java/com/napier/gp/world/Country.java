@@ -9,6 +9,7 @@ public class Country {
     private String _region;
     private Double _surfaceArea;
     private int _indepYear;
+    private int _population;
     private Double _lifeExpectancy;
     private Double _gnp;
     private Double _gnpOld;
@@ -21,13 +22,14 @@ public class Country {
     private List<City> _cities;
     private List<CountryLanguage> _languages;
 
-    public Country(String code, String name, String continent, String region, Double surfaceArea, int indepYear, Double lifeExpectancy, Double gnp, Double gnpOld, String localName, String governmentForm, String headOfState, int capital, String code2) {
+    public Country(String code, String name, String continent, String region, Double surfaceArea, int indepYear, int population, Double lifeExpectancy, Double gnp, Double gnpOld, String localName, String governmentForm, String headOfState, int capital, String code2) {
         _code = code;
         _name = name;
         _continent = continent;
         _region = region;
         _surfaceArea = surfaceArea;
         _indepYear = indepYear;
+        _population = population;
         _lifeExpectancy = lifeExpectancy;
         _gnp = gnp;
         _gnpOld = gnpOld;
@@ -85,6 +87,10 @@ public class Country {
     public void setIndepYear(int indepYear) {
         _indepYear = indepYear;
     }
+
+    public int getPopulation() { return _population; }
+
+    public void setPopulation(int population) { _population = population; }
 
     public Double getLifeExpectancy() {
         return _lifeExpectancy;

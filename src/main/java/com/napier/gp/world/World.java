@@ -4,9 +4,9 @@ import java.util.List;
 
 public class World {
     private World() { }
-    private World _instance;
+    private static World _instance;
 
-    public World getInstance() {
+    public static World getInstance() {
         if(_instance != null) { return _instance; }
         else {
             _instance = new World();

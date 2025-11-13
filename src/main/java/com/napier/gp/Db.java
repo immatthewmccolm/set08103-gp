@@ -158,4 +158,8 @@ public class Db {
         }
         return cities;
     }
+
+    public void populateWorld() {
+        PopulateWorld.TryPopulateWorld(con);
+    }
 }
