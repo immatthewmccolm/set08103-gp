@@ -1,0 +1,16 @@
+# Use Maven + Amazon Corretto 17 to compile & run tests
+FROM maven:3.9-amazoncorretto-17 AS tests
+
+WORKDIR /app
+
+# Copy pom and prefetch dependencies (cache-friendly)
+COPY pom.xml .
+RUN mvn -B -q dependency:go-offline
+
+# Copy source & tests
+COPY src ./src
+
+# Default command: run tests
+# You can limit to your UnitTests class if you want:
+# CMD ["mvn", "test", "-Dtest=UnitTests"]
+CMD ["mvn", "test"]

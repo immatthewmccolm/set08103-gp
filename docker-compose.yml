@@ -28,3 +28,16 @@ services:
     restart: always
     ports:
       - "33060:3306"
+
+  app-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=example
