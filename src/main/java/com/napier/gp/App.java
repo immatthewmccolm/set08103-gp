@@ -71,39 +71,39 @@ public class App {
                 case "1":
                     U1PopulationDataReports.printCountryPopulationLargestToSmallestInWorld();
                     break;
-/*
+
                 case "2":
-                    U1PopulationDataReports.printCountryPopulationLargestToSmallestInContinent(a.getConnection());
+                    U1PopulationDataReports.printCountryPopulationLargestToSmallestInContinent();
                     break;
 
                 case "3":
-                    U1PopulationDataReports.printCountryPopulationLargestToSmallestInRegion(a.getConnection());
+                    U1PopulationDataReports.printCountryPopulationLargestToSmallestInRegion();
                     break;
 
                 case "4":
-                    U2PopulationReports.printWorldPopulation(a.getConnection());
+                    U2PopulationReports.printWorldPopulation();
                     break;
 
                 case "5":
-                    U2PopulationReports.printContinentPopulations(a.getConnection());
+                    U2PopulationReports.printContinentPopulations();
                     break;
 
                 case "6":
-                    U2PopulationReports.printRegionPopulations(a.getConnection());
+                    U2PopulationReports.printRegionPopulations();
                     break;
 
                 case "7":
-                    U2PopulationReports.printCountryPopulations(a.getConnection());
+                    U2PopulationReports.printCountryPopulations();
                     break;
 
                 case "8":
-                    U2PopulationReports.printDistrictPopulations(a.getConnection());
+                    U2PopulationReports.printDistrictPopulations();
                     break;
 
                 case "9":
-                    U2PopulationReports.printCityPopulations(a.getConnection());
+                    U2PopulationReports.printCityPopulations();
                     break;
-
+/*
                 case "10":
                     U3LanguagesReport.print(a.getConnection());
                     break;

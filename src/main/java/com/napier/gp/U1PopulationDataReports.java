@@ -3,7 +3,7 @@ package com.napier.gp;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.List;
+import java.util.*;
 
 import com.napier.gp.world.City;
 import com.napier.gp.world.Country;
@@ -14,10 +14,10 @@ import com.napier.gp.world.World;
 public class U1PopulationDataReports {
 
         // Will call all Use Case 1 related reports in one function for ease of use
-        static void printAll(Connection con) {
+        static void printAll() {
             printCountryPopulationLargestToSmallestInWorld();
-            printCountryPopulationLargestToSmallestInContinent(con);
-            printCountryPopulationLargestToSmallestInRegion(con);
+            printCountryPopulationLargestToSmallestInContinent();
+            printCountryPopulationLargestToSmallestInRegion();
         }
 
         // Prints a report on all the countries in the world organised by largest population to smallest.
@@ -41,80 +41,86 @@ public class U1PopulationDataReports {
         }
 
         // Prints a report on all the countries in a continent organised by largest population to smallest.
-        static void printCountryPopulationLargestToSmallestInContinent(Connection con) {
-            try {
+        static void printCountryPopulationLargestToSmallestInContinent() {
+            List<Country> countries = World.getInstance().getCountries();
+            HashMap<String, List<Country>> continentPopulations = new HashMap<>();
+            List<Country> tempList;
 
-                Statement stmt = con.createStatement();
+            for(Country country : countries) {
+                if(!continentPopulations.containsKey(country.getContinent())) {
+                    continentPopulations.put(country.getContinent(),
+                            new ArrayList<>(Arrays.asList((country))));
+                }
+                else {
+                    tempList = continentPopulations.get(country.getContinent());
+                    tempList.add(country);
+                    continentPopulations.put(country.getContinent(), tempList);
+                }
+            }
 
-                String strSelect =
-                        "SELECT * FROM country ORDER BY continent ASC, population DESC";
+            Country temp;
 
-                ResultSet rset = stmt.executeQuery(strSelect);
+            for(Map.Entry<String, List<Country>> entry : continentPopulations.entrySet()) {
+                List<Country> continentCountries = entry.getValue();
+                System.out.println(entry.getKey() + ":");
 
-                while (rset.next()) {
-                    String code = rset.getString("Code");
-                    String countryName = rset.getString("Name");
-                    String continentName = rset.getString("Continent");
-                    String regionName = rset.getString("Region");
-                    int surfaceArea =  rset.getInt("SurfaceArea");
-                    int indepYear =  rset.getInt("IndepYear");
-                    int countryPopulation = rset.getInt("Population");
-                    double lifeExpectancy = rset.getDouble("LifeExpectancy");
-                    double gnp = rset.getDouble("GNP");
-                    double gnpOld = rset.getDouble("GNPOld");
-                    String localName = rset.getString("LocalName");
-                    String governmentForm = rset.getString("GovernmentForm");
-                    String headOfState = rset.getString("HeadOfState");
-                    int capital = rset.getInt("Capital");
-                    String code2 = rset.getString("Code2");
-
-                    System.out.println(code + " " + countryName + " " + continentName + " " + regionName + " "
-                            + surfaceArea + " " + indepYear + " " + countryPopulation + " " + lifeExpectancy + " "
-                            + gnp + " " + gnpOld + " " + localName + " " + governmentForm + " " + headOfState + " "
-                            + capital + " " + code2);
+                for(int i = 0; i < continentCountries.size() - 1; i++) {
+                    for(int j = 0; j < continentCountries.size() - i - 1; j++){
+                        if(continentCountries.get(j).getPopulation() < continentCountries.get(j + 1).getPopulation()) {
+                            temp = continentCountries.get(j);
+                            continentCountries.set(j, continentCountries.get(j + 1));
+                            continentCountries.set(j + 1, temp);
+                        }
+                    }
                 }
 
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+                for(Country country : continentCountries) {
+                    System.out.println(country.getName() + " " + country.getPopulation());
+                }
+
+                System.out.println("\n");
             }
         }
 
         // Prints a report on all the countries in a region organised by largest population to smallest.
-        static void printCountryPopulationLargestToSmallestInRegion(Connection con) {
-            try {
+        static void printCountryPopulationLargestToSmallestInRegion() {
+            List<Country> countries = World.getInstance().getCountries();
+            HashMap<String, List<Country>> regionPopulations = new HashMap<>();
+            List<Country> tempList;
 
-                Statement stmt = con.createStatement();
+            for(Country country : countries) {
+                if(!regionPopulations.containsKey(country.getRegion())) {
+                    regionPopulations.put(country.getRegion(),
+                            new ArrayList<>(Arrays.asList((country))));
+                }
+                else {
+                    tempList = regionPopulations.get(country.getRegion());
+                    tempList.add(country);
+                    regionPopulations.put(country.getRegion(), tempList);
+                }
+            }
 
-                String strSelect =
-                        "SELECT * FROM country ORDER BY region ASC, population DESC\n";
+            Country temp;
 
-                ResultSet rset = stmt.executeQuery(strSelect);
+            for(Map.Entry<String, List<Country>> entry : regionPopulations.entrySet()) {
+                List<Country> continentCountries = entry.getValue();
+                System.out.println(entry.getKey() + ":");
 
-                while (rset.next()) {
-                    String code = rset.getString("Code");
-                    String countryName = rset.getString("Name");
-                    String continentName = rset.getString("Continent");
-                    String regionName = rset.getString("Region");
-                    int surfaceArea =  rset.getInt("SurfaceArea");
-                    int indepYear =  rset.getInt("IndepYear");
-                    int countryPopulation = rset.getInt("Population");
-                    double lifeExpectancy = rset.getDouble("LifeExpectancy");
-                    double gnp = rset.getDouble("GNP");
-                    double gnpOld = rset.getDouble("GNPOld");
-                    String localName = rset.getString("LocalName");
-                    String governmentForm = rset.getString("GovernmentForm");
-                    String headOfState = rset.getString("HeadOfState");
-                    int capital = rset.getInt("Capital");
-                    String code2 = rset.getString("Code2");
-
-                    System.out.println(code + " " + countryName + " " + continentName + " " + regionName + " "
-                            + surfaceArea + " " + indepYear + " " + countryPopulation + " " + lifeExpectancy + " "
-                            + gnp + " " + gnpOld + " " + localName + " " + governmentForm + " " + headOfState + " "
-                            + capital + " " + code2);
+                for(int i = 0; i < continentCountries.size() - 1; i++) {
+                    for(int j = 0; j < continentCountries.size() - i - 1; j++){
+                        if(continentCountries.get(j).getPopulation() < continentCountries.get(j + 1).getPopulation()) {
+                            temp = continentCountries.get(j);
+                            continentCountries.set(j, continentCountries.get(j + 1));
+                            continentCountries.set(j + 1, temp);
+                        }
+                    }
                 }
 
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+                for(Country country : continentCountries) {
+                    System.out.println(country.getName() + " " + country.getPopulation());
+                }
+
+                System.out.println("\n");
             }
         }
 }

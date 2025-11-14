@@ -3,166 +3,202 @@ package com.napier.gp;
 import java.sql.Array.*;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import com.napier.gp.world.City;
 import com.napier.gp.world.City.*;
 import com.napier.gp.Db.*;
+import com.napier.gp.world.Country;
+import com.napier.gp.world.World;
 
 import java.sql.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 // Contains all code related to Use-Case 2: Produce population reports as a baseline to compare to other reports etc.
 public class U2PopulationReports {
     // Will call all Use Case 2 related reports in one function for ease of use
     static void printAll(Connection con) {
         System.out.println("\nWorld Population:");
-        printWorldPopulation(con);
+        printWorldPopulation();
 
         System.out.println("\nContinental Populations:");
-        printContinentPopulations(con);
+        printContinentPopulations();
 
         System.out.println("\nRegion Populations:");
-        printRegionPopulations(con);
+        printRegionPopulations();
 
-        System.out.println("\nRegion Populations:");
-        printCountryPopulations(con);
+        System.out.println("\nCountry Populations:");
+        printCountryPopulations();
 
         System.out.println("\nDistrict Populations:");
-        printDistrictPopulations(con);
+        printDistrictPopulations();
 
         System.out.println("\nCity Populations:");
-        printCityPopulations(con);
+        printCityPopulations();
     }
 
     // Prints a report on the total population of the world
-    static void printWorldPopulation(Connection con) {
-        try {
+    static void printWorldPopulation() {
+        long worldPopulation = 0;
 
-            Statement stmt = con.createStatement();
-
-            String strSelect =
-                    "SELECT SUM(population) AS `World Population` FROM country";
-
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            if (rset.next()) {
-                String worldPopulation = rset.getString("World Population");
-                System.out.println(worldPopulation);
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        for(Country country : World.getInstance().getCountries()) {
+            worldPopulation += country.getPopulation();
         }
+
+        System.out.println("World Population: " + worldPopulation);
     }
 
     // Prints a report on the total population of each of the 7 continents
-    static void printContinentPopulations(Connection con) {
-        try {
-            Statement stmt = con.createStatement();
+    static void printContinentPopulations() {
+        List<Country> countries = World.getInstance().getCountries();
+        HashMap<String, Long> continentPopulations = new HashMap<>();
 
-            String strSelect =
-                    "SELECT DISTINCT(continent) AS Continent, SUM(population) AS Population FROM country WHERE continent IN (SELECT continent FROM country) GROUP BY continent ORDER BY population DESC";
-
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            while (rset.next()) {
-                String continentName = rset.getString("Continent");
-                String population = rset.getString("Population");
-
-                System.out.println(continentName + " " + population);
+        for(Country country : countries) {
+            if(!continentPopulations.containsKey(country.getContinent())) {
+                continentPopulations.put(country.getContinent(), (long)country.getPopulation());
             }
+            else {
+                continentPopulations.put(country.getContinent(),
+                        continentPopulations.get(country.getContinent()) + (long)country.getPopulation());
+            }
+        }
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        for(Map.Entry<String, Long> entry : continentPopulations.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+    }
+
+    static void printContinentPopulationByKey(String key) {
+        List<Country> countries = World.getInstance().getCountries();
+        HashMap<String, Long> continentPopulations = new HashMap<>();
+
+        for(Country country : countries) {
+            if(!continentPopulations.containsKey(country.getContinent())) {
+                continentPopulations.put(country.getContinent(), (long)country.getPopulation());
+            }
+            else {
+                continentPopulations.put(country.getContinent(),
+                        continentPopulations.get(country.getContinent()) + (long)country.getPopulation());
+            }
+        }
+
+        for(Map.Entry<String, Long> entry : continentPopulations.entrySet()) {
+            if(entry.getKey().equals(key)) {
+                System.out.println(entry.getKey() + " " + entry.getValue());
+            }
         }
     }
 
     // Prints a report on the total population of each of the regions of the world
-    static void printRegionPopulations(Connection con) {
-        try {
+    static void printRegionPopulations() {
+        List<Country> countries = World.getInstance().getCountries();
+        HashMap<String, Long> regionPopulations = new HashMap<>();
 
-            Statement stmt = con.createStatement();
-
-            String strSelect =
-                    "SELECT DISTINCT(region) AS Region, SUM(population) AS Population FROM country WHERE region IN (SELECT region FROM country) GROUP BY region ORDER BY population DESC";
-
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            while (rset.next()) {
-                String regionName = rset.getString("Region");
-                int population = rset.getInt("Population");
-
-                System.out.println(regionName + " " + population);
+        for(Country country : countries) {
+            if(!regionPopulations.containsKey(country.getRegion())) {
+                regionPopulations.put(country.getRegion(), (long)country.getPopulation());
             }
+            else {
+                regionPopulations.put(country.getRegion(),
+                        regionPopulations.get(country.getRegion()) + (long)country.getPopulation());
+            }
+        }
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        for(Map.Entry<String, Long> entry : regionPopulations.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+    }
+
+    static void printRegionPopulationByKey(String key) {
+        List<Country> countries = World.getInstance().getCountries();
+        HashMap<String, Long> regionPopulations = new HashMap<>();
+
+        for(Country country : countries) {
+            if(!regionPopulations.containsKey(country.getRegion())) {
+                regionPopulations.put(country.getRegion(), (long)country.getPopulation());
+            }
+            else {
+                regionPopulations.put(country.getRegion(),
+                        regionPopulations.get(country.getRegion()) + (long)country.getPopulation());
+            }
+        }
+
+        for(Map.Entry<String, Long> entry : regionPopulations.entrySet()) {
+            if(entry.getKey().equals(key)) {
+                System.out.println(entry.getKey() + " " + entry.getValue());
+            }
         }
     }
 
     // Prints a report on the total population of each of the countries of the world
-    static void printCountryPopulations(Connection con) {
-        try {
+    static void printCountryPopulations() {
+        for(Country country : World.getInstance().getCountries()) {
+            System.out.println(country.getName() + " " + country.getPopulation());
+        }
+    }
 
-            Statement stmt = con.createStatement();
-
-            String strSelect =
-                    "SELECT DISTINCT(name) AS Country, population AS Population FROM country ORDER BY population DESC";
-
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            while (rset.next()) {
-                String countryName = rset.getString("Country");
-                int population = rset.getInt("Population");
-
-                System.out.println(countryName + " " + population);
+    static void printCountryPopulationByKey(String key) {
+        for(Country country : World.getInstance().getCountries()) {
+            if(country.getName().equals(key)) {
+                System.out.println(country.getName() + " " + country.getPopulation());
             }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
     }
 
     // Prints a report on the total population of each of the districts of the world
-    static void printDistrictPopulations(Connection con) {
-        try {
+    static void printDistrictPopulations() {
+        List<City> cities = World.getInstance().getCities();
+        HashMap<String, Long> districtPopulations = new HashMap<>();
 
-            Statement stmt = con.createStatement();
-
-            String strSelect =
-                    "SELECT DISTINCT(district) AS District, SUM(population) AS Population FROM city WHERE district IN (SELECT district FROM city) GROUP BY district ORDER BY population DESC";
-
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            while (rset.next()) {
-                String districtName = rset.getString("District");
-                int population = rset.getInt("Population");
-
-                System.out.println(districtName + " " + population);
+        for(City city : cities) {
+            if(!districtPopulations.containsKey(city.getDistrict())) {
+                districtPopulations.put(city.getDistrict(), (long)city.getPopulation());
             }
+            else {
+                districtPopulations.put(city.getDistrict(),
+                        districtPopulations.get(city.getDistrict()) + (long)city.getPopulation());
+            }
+        }
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        for(Map.Entry<String, Long> entry : districtPopulations.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+    }
+
+    static void printDistrictPopulationByKey(String key) {
+        List<City> cities = World.getInstance().getCities();
+        HashMap<String, Long> districtPopulations = new HashMap<>();
+
+        for(City city : cities) {
+            if(!districtPopulations.containsKey(city.getDistrict())) {
+                districtPopulations.put(city.getDistrict(), (long)city.getPopulation());
+            }
+            else {
+                districtPopulations.put(city.getDistrict(),
+                        districtPopulations.get(city.getDistrict()) + (long)city.getPopulation());
+            }
+        }
+
+        for(Map.Entry<String, Long> entry : districtPopulations.entrySet()) {
+            if(entry.getKey().equals(key)) {
+                System.out.println(entry.getKey() + " " + entry.getValue());
+            }
         }
     }
 
     // Prints a report on the total population of each of the cities of the world
-    static void printCityPopulations(Connection con) {
-        try {
+    static void printCityPopulations() {
+        for(City city : World.getInstance().getCities()) {
+            System.out.println(city.getName() + " " + city.getPopulation());
+        }
+    }
 
-            Statement stmt = con.createStatement();
-
-            String strSelect =
-                    "SELECT city.name, population FROM city ORDER BY population DESC";
-
-            ResultSet rset = stmt.executeQuery(strSelect);
-
-            while (rset.next()) {
-                String cityName = rset.getString("Name");
-                int population = rset.getInt("Population");
-
-                System.out.println(cityName + " " + population);
+    static void printCityPopulationByKey(String key) {
+        for(City city : World.getInstance().getCities()) {
+            if(city.getName().equals(key)) {
+                System.out.println(city.getName() + " " + city.getPopulation());
             }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
     }
 }
