@@ -85,43 +85,43 @@ public class UnitTest {
                 "Midi-Pyrénées", 390350
         ));
     }
-
+    // Runs before every test: redirect System.out so we can capture printed output
     @BeforeEach
     void startCapture() {
         out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
     }
-
+    // Runs after every test: restore the original System.out
     @AfterEach
     void stopCapture() {
         System.setOut(originalOut);
     }
-
+    // Test 1: Check the world population report returns the expected value
     @Test
     void checkWorldPopulation() {
         assertEquals(192, U2PopulationReports.returnWorldPopulation());
     }
-
+    // Test 2: Check that city population lookup works correctly
     @Test
     void checkCityPopulation() {
         assertEquals(2125246, U2PopulationReports.printCityPopulationByKey("Paris"));
     }
-
+    // Test 3: Check that district population lookup works correctly
     @Test
     void checkDistrictPopulation() {
         assertEquals(2125246, U2PopulationReports.printDistrictPopulationByKey("Île-de-France"));
     }
-
+    // Test 4: Check that country population lookup works correctly
     @Test
     void checkCountryPopulation() {
         assertEquals(65, U2PopulationReports.printCountryPopulationByKey("France"));
     }
-
+    // Test 5: Check that region population lookup works correctly
     @Test
     void checkRegionPopulation() {
         assertEquals(65, U2PopulationReports.printRegionPopulationByKey("Western Europe"));
     }
-
+    // Test 6: Check that continent population lookup works correctly
     @Test
     void checkContinentPopulation() {
         assertEquals(132, U2PopulationReports.printContinentPopulationByKey("Europe"));

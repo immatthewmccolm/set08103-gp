@@ -60,18 +60,21 @@ public class U1PopulationDataReportsIntegrationTest {
                 "France", "Republic", "Head", 5, "FR"
         ));
     }
-
+    // Runs before each test.
+    // Redirects System.out so any printed output can be captured for assertions.
     @BeforeEach
     void startCapture() {
         out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
     }
 
+    // Runs after each test.
+    // Restores the original System.out so normal console output continues.
     @AfterEach
     void stopCapture() {
         System.setOut(originalOut);
     }
-
+    // Test 1: Checks that the world report prints countries in descending population order.
     @Test
     void printWorldReport_isSortedDescending() {
         U1PopulationDataReports.printCountryPopulationLargestToSmallestInWorld();
@@ -96,7 +99,7 @@ public class U1PopulationDataReportsIntegrationTest {
             previous = pop;
         }
     }
-
+    // Test 2: Checks that the continent report groups countries by continent and sorts each group.
     @Test
     void printContinentReport_groupsAndSorts() {
         U1PopulationDataReports.printCountryPopulationLargestToSmallestInContinent();
@@ -117,7 +120,7 @@ public class U1PopulationDataReportsIntegrationTest {
         assertTrue(indiaIndex > asiaIndex);
         assertTrue(chinaIndex < indiaIndex, "China should appear before India in Asia block");
     }
-
+    // Test 3: Checks that the region report prints regional headers and correctly groups countries.
     @Test
     void printRegionReport_groupsAndSorts() {
         U1PopulationDataReports.printCountryPopulationLargestToSmallestInRegion();
