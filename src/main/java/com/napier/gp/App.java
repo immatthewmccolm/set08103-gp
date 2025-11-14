@@ -24,17 +24,6 @@ import static com.napier.gp.U1PopulationDataReports.*;
 public class App {
     public static void main(String[] args) {
 
-//      Code to make GitHub CI not break
-
-        boolean nonInteractive =
-                "true".equalsIgnoreCase(System.getenv("CI")) ||
-                        java.util.Arrays.asList(args).contains("--non-interactive");
-
-        if (nonInteractive) {
-            System.out.println("Running in CI non-interactive mode...");
-            return;
-        }
-
         // Create new Application
         Db a = new Db();
 
@@ -53,7 +42,7 @@ public class App {
 //        U3LanguagesReport.print(a.getConnection());
 //
 //        U2PopulationReports.printAll(a.getConnection());
-
+/*
         //         Prints Page Title
         pageTitle("Country Data Analysis Software");
 
@@ -114,15 +103,15 @@ public class App {
                 case "9":
                     U2PopulationReports.printCityPopulations();
                     break;
-/*
+*//*
                 case "10":
                     U3LanguagesReport.print(a.getConnection());
                     break;
-*/
+*//*
                 default:
                     System.out.println("Please enter a valid menu option.\n");
                     break;
             }
-        }
+        }*/
     }
 }
