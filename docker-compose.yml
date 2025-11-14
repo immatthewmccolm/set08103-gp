@@ -43,7 +43,6 @@ services:
       - DB_PASSWORD=example
 
   app-ci:
-    image: set08103-gp-app
     depends_on:
       - db
     environment:
