@@ -49,6 +49,17 @@ public class U2PopulationReports {
         System.out.println("World Population: " + worldPopulation);
     }
 
+    // Prints a report on the total population of the world
+    static long returnWorldPopulation() {
+        long worldPopulation = 0;
+
+        for(Country country : World.getInstance().getCountries()) {
+            worldPopulation += country.getPopulation();
+        }
+
+        return worldPopulation;
+    }
+
     // Prints a report on the total population of each of the 7 continents
     static void printContinentPopulations() {
         List<Country> countries = World.getInstance().getCountries();
@@ -69,9 +80,10 @@ public class U2PopulationReports {
         }
     }
 
-    static void printContinentPopulationByKey(String key) {
+    static long printContinentPopulationByKey(String key) {
         List<Country> countries = World.getInstance().getCountries();
         HashMap<String, Long> continentPopulations = new HashMap<>();
+        long _continentPopulation = 0;
 
         for(Country country : countries) {
             if(!continentPopulations.containsKey(country.getContinent())) {
@@ -85,9 +97,11 @@ public class U2PopulationReports {
 
         for(Map.Entry<String, Long> entry : continentPopulations.entrySet()) {
             if(entry.getKey().equals(key)) {
-                System.out.println(entry.getKey() + " " + entry.getValue());
+                _continentPopulation = entry.getValue();
             }
         }
+
+        return _continentPopulation;
     }
 
     // Prints a report on the total population of each of the regions of the world
@@ -110,9 +124,10 @@ public class U2PopulationReports {
         }
     }
 
-    static void printRegionPopulationByKey(String key) {
+    static long printRegionPopulationByKey(String key) {
         List<Country> countries = World.getInstance().getCountries();
         HashMap<String, Long> regionPopulations = new HashMap<>();
+        long _regionPopulation = 0;
 
         for(Country country : countries) {
             if(!regionPopulations.containsKey(country.getRegion())) {
@@ -127,8 +142,11 @@ public class U2PopulationReports {
         for(Map.Entry<String, Long> entry : regionPopulations.entrySet()) {
             if(entry.getKey().equals(key)) {
                 System.out.println(entry.getKey() + " " + entry.getValue());
+                _regionPopulation = entry.getValue();
             }
         }
+
+        return _regionPopulation;
     }
 
     // Prints a report on the total population of each of the countries of the world
@@ -138,12 +156,15 @@ public class U2PopulationReports {
         }
     }
 
-    static void printCountryPopulationByKey(String key) {
+    static int printCountryPopulationByKey(String key) {
+        int _countryPopulation = 0;
         for(Country country : World.getInstance().getCountries()) {
             if(country.getName().equals(key)) {
-                System.out.println(country.getName() + " " + country.getPopulation());
+                _countryPopulation = country.getPopulation();
             }
         }
+
+        return _countryPopulation;
     }
 
     // Prints a report on the total population of each of the districts of the world
@@ -166,9 +187,10 @@ public class U2PopulationReports {
         }
     }
 
-    static void printDistrictPopulationByKey(String key) {
+    static long printDistrictPopulationByKey(String key) {
         List<City> cities = World.getInstance().getCities();
         HashMap<String, Long> districtPopulations = new HashMap<>();
+        long _districtPopulation = 0;
 
         for(City city : cities) {
             if(!districtPopulations.containsKey(city.getDistrict())) {
@@ -182,9 +204,11 @@ public class U2PopulationReports {
 
         for(Map.Entry<String, Long> entry : districtPopulations.entrySet()) {
             if(entry.getKey().equals(key)) {
-                System.out.println(entry.getKey() + " " + entry.getValue());
+                _districtPopulation = entry.getValue();
             }
         }
+
+        return _districtPopulation;
     }
 
     // Prints a report on the total population of each of the cities of the world
@@ -194,12 +218,14 @@ public class U2PopulationReports {
         }
     }
 
-    static void printCityPopulationByKey(String key) {
+    static int printCityPopulationByKey(String key) {
+        int _cityPopulation = 0;
         for(City city : World.getInstance().getCities()) {
             if(city.getName().equals(key)) {
-                System.out.println(city.getName() + " " + city.getPopulation());
+                _cityPopulation =  city.getPopulation();
             }
         }
+        return _cityPopulation;
     }
 }
 
