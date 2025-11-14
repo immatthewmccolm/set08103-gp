@@ -42,7 +42,7 @@ public class App {
 //        U3LanguagesReport.print(a.getConnection());
 //
 //        U2PopulationReports.printAll(a.getConnection());
-
+/*
         //         Prints Page Title
         pageTitle("Country Data Analysis Software");
 
@@ -103,15 +103,15 @@ public class App {
                 case "9":
                     U2PopulationReports.printCityPopulations();
                     break;
-/*
+*//*
                 case "10":
                     U3LanguagesReport.print(a.getConnection());
                     break;
-*/
+*//*
                 default:
                     System.out.println("Please enter a valid menu option.\n");
                     break;
             }
-        }
+        }*/
     }
 }

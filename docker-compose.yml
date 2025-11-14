@@ -22,6 +22,10 @@ services:
       - DB_USER=root
       - DB_PASSWORD=example
 
+    command: >
+      sh -c "printf '0\n' |
+             java -jar SET08103--Friday-4PM-Group-8-0.1.0.1-jar-with-dependencies.jar"
+
   db:
     build: ./db
     container_name: gp-db
