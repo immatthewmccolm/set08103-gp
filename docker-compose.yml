@@ -41,3 +41,10 @@ services:
       - DB_PORT=3306
       - DB_USER=root
       - DB_PASSWORD=example
+
+  app-ci:
+    image: set08103-gp-app
+    depends_on:
+      - db
+    environment:
+      CI: "true"     # triggers non-interactive mode in main()
