@@ -5,17 +5,10 @@
 
 package com.napier.gp;
 import static com.napier.gp.Menu.*;
-import static com.napier.gp.UserInput.*;
-import static com.napier.gp.world.City.*;
-import static com.napier.gp.world.Country.*;
-import static com.napier.gp.world.CountryLanguage.*;
-import static com.napier.gp.Db.*;
-import java.sql.*;
-import java.util.List;
-import com.napier.gp.world.*;
-import static com.napier.gp.U3LanguagesReport.*;
-import static com.napier.gp.U2PopulationReports.*;
-import static com.napier.gp.U1PopulationDataReports.*;
+
+import com.napier.gp.world.reports.U1PopulationDataReports;
+import com.napier.gp.world.reports.U2PopulationReports;
+import com.napier.gp.world.reports.U3LanguagesReport;
 
 
 /**
@@ -51,13 +44,35 @@ public class App {
         menuItem(1, "Country Population (L - S in World)");
         menuItem(2, "Country Population (L - S in Continent)");
         menuItem(3, "Country Population (L - S in Region)");
-        menuItem(4, "World Population");
-        menuItem(5, "Continent Populations");
-        menuItem(6, "Region Populations");
-        menuItem(7, "Country Populations");
-        menuItem(8, "District Populations");
-        menuItem(9, "City Populations");
-        menuItem(10, "U3 Language Report");
+        menuItem(4, "Top N Populated Countries (in World)");
+        menuItem(5, "Top N Populated Countries (in Continent)");
+        menuItem(6, "Top N Populated Countries (in Region)");
+        menuItem(7, "City Population (L - S in World)");
+        menuItem(8, "City Population (L - S in Continent)");
+        menuItem(9, "City Population (L - S in Region)");
+        menuItem(10, "City Population (L - S in Country)");
+        menuItem(11, "City Population (L - S in District)");
+        menuItem(12, "Top N Populated Cities (in World)");
+        menuItem(13, "Top N Populated Cities (in Continent)");
+        menuItem(14, "Top N Populated Cities (in Region)");
+        menuItem(15, "Top N Populated Cities (in Country)");
+        menuItem(16, "Top N Populated Cities (in District)");
+        menuItem(17, "Capital City Population (L - S in World)");
+        menuItem(18, "Capital City Population (L - S in Continent)");
+        menuItem(19, "Capital City Population (L - S in Region)");
+        menuItem(20, "Top N Populated Capital Cities (in World)");
+        menuItem(21, "Top N Populated Capital Cities (in Continent)");
+        menuItem(22, "Top N Populated Capital Cities (in Region)");
+        menuItem(23, "Population of People Living and Not Living in Cities (L - S in Continent)");
+        menuItem(24, "Population of People Living and Not Living in Cities (L - S in Region)");
+        menuItem(25, "Population of People Living and Not Living in Cities (L - S in Country)");
+        menuItem(26, "World Population");
+        menuItem(27, "Continent Populations");
+        menuItem(28, "Region Populations");
+        menuItem(29, "Country Populations");
+        menuItem(30, "District Populations");
+        menuItem(31, "City Populations");
+        menuItem(32, "Percentage of Selected Languages Spoken (L - S in World)");
 
         // Gets user input and loads the appropriate method, otherwise loops until a valid input is received
         while (true) {
@@ -81,30 +96,114 @@ public class App {
                     break;
 
                 case "4":
-                    U2PopulationReports.printWorldPopulation();
+                    U1PopulationDataReports.printTopNPopulatedCountriesInWorld(5);
                     break;
 
                 case "5":
-                    U2PopulationReports.printContinentPopulations();
+                    U1PopulationDataReports.printTopNPopulatedCountriesInContinent(5);
                     break;
 
                 case "6":
-                    U2PopulationReports.printRegionPopulations();
+                    U1PopulationDataReports.printTopNPopulatedCountriesInRegion(5);
                     break;
 
                 case "7":
-                    U2PopulationReports.printCountryPopulations();
+                    U1PopulationDataReports.printCityPopulationLargestToSmallestInWorld();
                     break;
 
                 case "8":
-                    U2PopulationReports.printDistrictPopulations();
+                    U1PopulationDataReports.printCityPopulationLargestToSmallestInContinent();
                     break;
 
                 case "9":
-                    U2PopulationReports.printCityPopulations();
+                    U1PopulationDataReports.printCityPopulationLargestToSmallestInRegion();
                     break;
 
                 case "10":
+                    U1PopulationDataReports.printCityPopulationLargestToSmallestInCountry();
+
+                case "11":
+                    U1PopulationDataReports.printCitiesLargestToSmallestInDistrict();
+
+                case "12":
+                    U1PopulationDataReports.printTopNPopulatedCitiesInWorld(5);
+                    break;
+
+                case "13":
+                    U1PopulationDataReports.printTopNPopulatedCitiesInContinent(5);
+                    break;
+
+                case "14":
+                    U1PopulationDataReports.printTopNPopulatedCitiesInRegion(5);
+                    break;
+
+                case "15":
+                    U1PopulationDataReports.printTopNPopulatedCitiesInCountry(5);
+
+                case "16":
+                    U1PopulationDataReports.printTopNLargestCitiesInDistrict(5);
+
+                case "17":
+                    U1PopulationDataReports.printCapitalCitiesLargestToSmallestInWorld();
+                    break;
+
+                case "18":
+                    U1PopulationDataReports.printCapitalCitiesLargestToSmallestInContinent();
+                    break;
+
+                case "19":
+                    U1PopulationDataReports.printCapitalCitiesLargestToSmallestInRegion();
+                    break;
+
+                case "20":
+                    U1PopulationDataReports.printTopNLargestCapitalCitiesInWorld(5);
+                    break;
+
+                case "21":
+                    U1PopulationDataReports.printTopNLargestCapitalCitiesInContinent(5);
+                    break;
+
+                case "22":
+                    U1PopulationDataReports.printTopNLargestCapitalCitiesInRegion(5);
+                    break;
+
+                case "23":
+                    U1PopulationDataReports.printPeopleInAndNotInCitiesInContinent();
+                    break;
+
+                case "24":
+                    U1PopulationDataReports.printPeopleInAndNotInCitiesInRegion();
+                    break;
+
+                case "25":
+                    U1PopulationDataReports.printPeopleInAndNotInCitiesInCountry();
+                    break;
+
+                case "26":
+                    U2PopulationReports.printWorldPopulation();
+                    break;
+
+                case "27":
+                    U2PopulationReports.printContinentPopulations();
+                    break;
+
+                case "28":
+                    U2PopulationReports.printRegionPopulations();
+                    break;
+
+                case "29":
+                    U2PopulationReports.printCountryPopulations();
+                    break;
+
+                case "30":
+                    U2PopulationReports.printDistrictPopulations();
+                    break;
+
+                case "31":
+                    U2PopulationReports.printCityPopulations();
+                    break;
+
+                case "32":
                     U3LanguagesReport.print();
                     break;
 
