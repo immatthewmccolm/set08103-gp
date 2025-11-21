@@ -121,9 +121,11 @@ public class App {
 
                 case "10":
                     U1PopulationDataReports.printCityPopulationLargestToSmallestInCountry();
+                    break;
 
                 case "11":
                     U1PopulationDataReports.printCitiesLargestToSmallestInDistrict();
+                    break;
 
                 case "12":
                     U1PopulationDataReports.printTopNPopulatedCitiesInWorld(5);
