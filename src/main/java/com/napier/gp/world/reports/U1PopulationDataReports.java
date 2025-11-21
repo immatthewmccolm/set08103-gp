@@ -384,7 +384,7 @@ public class U1PopulationDataReports {
                 } else {
                     tempList = regionPopulations.get(country.getRegion());
                     tempList.add(city);
-                    regionPopulations.put(country.getContinent(), tempList);
+                    regionPopulations.put(country.getRegion(), tempList);
                 }
             }
         }
@@ -463,7 +463,7 @@ public class U1PopulationDataReports {
                 } else {
                     tempList = countryPopulations.get(country.getName());
                     tempList.add(city);
-                    countryPopulations.put(country.getContinent(), tempList);
+                    countryPopulations.put(country.getName(), tempList);
                 }
             }
         }
