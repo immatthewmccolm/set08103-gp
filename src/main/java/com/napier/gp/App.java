@@ -10,7 +10,6 @@ import com.napier.gp.world.reports.U1PopulationDataReports;
 import com.napier.gp.world.reports.U2PopulationReports;
 import com.napier.gp.world.reports.U3LanguagesReport;
 
-
 /**
  * Main class used to run the program.
  */
