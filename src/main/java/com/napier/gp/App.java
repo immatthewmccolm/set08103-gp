@@ -63,9 +63,9 @@ public class App {
         menuItem(20, "Top N Populated Capital Cities (in World)");
         menuItem(21, "Top N Populated Capital Cities (in Continent)");
         menuItem(22, "Top N Populated Capital Cities (in Region)");
-        menuItem(23, "Population of People Living and Not Living in Cities (L - S in Continent)");
-        menuItem(24, "Population of People Living and Not Living in Cities (L - S in Region)");
-        menuItem(25, "Population of People Living and Not Living in Cities (L - S in Country)");
+        menuItem(23, "Population of People Living and Not Living in Cities");
+        menuItem(24, "Population of People Living and Not Living in Cities");
+        menuItem(25, "Population of People Living and Not Living in Cities");
         menuItem(26, "World Population");
         menuItem(27, "Continent Populations");
         menuItem(28, "Region Populations");

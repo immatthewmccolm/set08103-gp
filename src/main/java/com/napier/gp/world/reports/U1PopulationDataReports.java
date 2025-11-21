@@ -192,7 +192,6 @@ public class U1PopulationDataReports {
 
         for (Map.Entry<String, List<Country>> entry : regionPopulations.entrySet()) {
             List<Country> continentCountries = entry.getValue();
-            System.out.println(entry.getKey() + ":");
 
             for (int i = 0; i < continentCountries.size() - 1; i++) {
                 for (int j = 0; j < continentCountries.size() - i - 1; j++) {
@@ -852,66 +851,72 @@ public class U1PopulationDataReports {
     public static void printPeopleInAndNotInCitiesInContinent() {
         HashMap<String, List<Country>> continentPopulations = getCountryPopulationLargestToSmallestInContinent();
 
-        int totalCitiesPop;
-        int notInCitiesPop;
+        long totalCitiesPop;
+        long notInCitiesPop;
+        long totalContinentPop;
 
         for (Map.Entry<String, List<Country>> entry : continentPopulations.entrySet()) {
+            totalContinentPop = 0;
+            totalCitiesPop = 0;
+            notInCitiesPop = 0;
+
+            System.out.println("Population of people in and not in cities for the continent of: " + entry.getKey() + "\n");
             for (Country country : entry.getValue()) {
-                totalCitiesPop = 0;
-                notInCitiesPop = 0;
+                totalContinentPop += country.getPopulation();
 
                 for (City city : country.getCities()) {
                     totalCitiesPop += city.getPopulation();
                 }
-                notInCitiesPop = country.getPopulation() - totalCitiesPop;
-                System.out.println(country.getName() + "\n");
-                System.out.println("People in cities: " + totalCitiesPop + " People not in cities: " + notInCitiesPop + "\n");
             }
+
+            notInCitiesPop = totalContinentPop - totalCitiesPop;
+            System.out.println("Total Population of People: " + totalContinentPop + " People in cities: " + totalCitiesPop + " People not in cities: " + notInCitiesPop + "\n");
         }
     }
 
     public static void printPeopleInAndNotInCitiesInRegion() {
-
         HashMap<String, List<Country>> regionPopulations = getCountryPopulationLargestToSmallestInRegion();
-
+        int totalRegionPop;
         int totalCitiesPop;
         int notInCitiesPop;
 
         for (Map.Entry<String, List<Country>> entry : regionPopulations.entrySet()) {
+            totalRegionPop = 0;
+            totalCitiesPop = 0;
+            notInCitiesPop = 0;
+
+            System.out.println("Population of people in and not in cities for the region of: " + entry.getKey() +"\n");
+
             for (Country country : entry.getValue()) {
-                totalCitiesPop = 0;
-                notInCitiesPop = 0;
+                totalRegionPop += country.getPopulation();
 
                 for (City city : country.getCities()) {
                     totalCitiesPop += city.getPopulation();
                 }
-                notInCitiesPop = country.getPopulation() - totalCitiesPop;
-                System.out.println(country.getName() + "\n");
-                System.out.println("People in cities: " + totalCitiesPop + " People not in cities: " + notInCitiesPop + "\n");
             }
+
+            notInCitiesPop = totalRegionPop - totalCitiesPop;
+
+            System.out.println("Total Population of People: " + totalRegionPop + " People in Cities " + totalCitiesPop + " People not in cities: " + notInCitiesPop + "\n");
         }
     }
 
     public static void printPeopleInAndNotInCitiesInCountry() {
-
-        HashMap<String, List<Country>> countryPopulations = getCountryPopulationLargestToSmallestInRegion();
-
+       List<Country> countryPopulations = getCountryPopulationLargestToSmallestInWorld();
         int totalCitiesPop;
         int notInCitiesPop;
 
-        for (Map.Entry<String, List<Country>> entry : countryPopulations.entrySet()) {
-            for (Country country : entry.getValue()) {
-                totalCitiesPop = 0;
-                notInCitiesPop = 0;
+        for (Country country: countryPopulations) {
+            System.out.println("Population of people in and not in cities for the country of: " + country.getName() +"\n");
+            totalCitiesPop = 0;
+            notInCitiesPop = 0;
 
-                for (City city : country.getCities()) {
-                    totalCitiesPop += city.getPopulation();
-                }
-                notInCitiesPop = country.getPopulation() - totalCitiesPop;
-                System.out.println(country.getName() + "\n");
-                System.out.println("People in cities: " + totalCitiesPop + " People not in cities: " + notInCitiesPop + "\n");
+            for (City city : country.getCities()) {
+                totalCitiesPop += city.getPopulation();
             }
+            notInCitiesPop = country.getPopulation() - totalCitiesPop;
+            System.out.println("Total Population of People: " +  country.getPopulation() + " People in cities: " + totalCitiesPop + " People not in cities: " + notInCitiesPop + "\n");
         }
     }
-
 }
+
