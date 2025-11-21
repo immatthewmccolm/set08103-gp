@@ -71,28 +71,47 @@ public class U1PopulationDataReports {
     public static void printTopNPopulatedCountriesInWorld(int n) {
         List<Country> countries = getCountryPopulationLargestToSmallestInWorld();
 
+        System.out.println("The top " + n + " most populated countries in the world: \n");
+
         for (int i = 0; i < n; i++) {
-            System.out.println(countries.get(i));
+            Country currentCountry = countries.get(i);
+            System.out.println(i+1 +". " + currentCountry.getName() + " " + currentCountry.getPopulation());
         }
     }
 
     // Prints a report on all the countries in a continent organised by largest population to smallest.
     public static HashMap<String, List<Country>> getCountryPopulationLargestToSmallestInContinent() {
-    List<Country> countries = World.getInstance().getCountries();
-    HashMap<String, List<Country>> continentPopulations = new HashMap<>();
-    List<Country> tempList;
+        List<Country> countries = World.getInstance().getCountries();
+        HashMap<String, List<Country>> continentPopulations = new HashMap<>();
+        List<Country> tempList;
 
-    for(Country country : countries) {
-        if(!continentPopulations.containsKey(country.getContinent())) {
-            continentPopulations.put(country.getContinent(),
-                    new ArrayList<>(Arrays.asList((country))));
+        for(Country country : countries) {
+            if(!continentPopulations.containsKey(country.getContinent())) {
+                continentPopulations.put(country.getContinent(),
+                        new ArrayList<>(Arrays.asList((country))));
+            }
+            else {
+                tempList = continentPopulations.get(country.getContinent());
+                tempList.add(country);
+                continentPopulations.put(country.getContinent(), tempList);
+            }
         }
-        else {
-            tempList = continentPopulations.get(country.getContinent());
-            tempList.add(country);
-            continentPopulations.put(country.getContinent(), tempList);
+
+        Country temp;
+
+        for(Map.Entry<String, List<Country>> entry : continentPopulations.entrySet()) {
+            List<Country> continentCountries = entry.getValue();
+
+            for (int i = 0; i < continentCountries.size() - 1; i++) {
+                for (int j = 0; j < continentCountries.size() - i - 1; j++) {
+                    if (continentCountries.get(j).getPopulation() < continentCountries.get(j + 1).getPopulation()) {
+                        temp = continentCountries.get(j);
+                        continentCountries.set(j, continentCountries.get(j + 1));
+                        continentCountries.set(j + 1, temp);
+                    }
+                }
+            }
         }
-    }
 
     return continentPopulations;
 }
@@ -127,46 +146,30 @@ public class U1PopulationDataReports {
     }
 
     public static void printTopNPopulatedCountriesInContinent(int n) {
-        List<Country> countries = World.getInstance().getCountries();
         HashMap<String, List<Country>> continentPopulations = getCountryPopulationLargestToSmallestInContinent();
-        List<Country> tempList;
+        int count;
 
-        // remove the excess entries first. Trim
-        int runningTotal = 0;
-        HashMap<String, List<Country>> trimmedContinentPopulations = new HashMap<>();
 
-        // Use a running total to ensure only n amount of values get added.
+        //
         for (Map.Entry<String, List<Country>> entry : continentPopulations.entrySet()) {
-            if (runningTotal >= n) {
-                break;
-            }
-            trimmedContinentPopulations.put(entry.getKey(), entry.getValue());
-            runningTotal++;
-        }
+            count = 0;
+            System.out.println("The top " + n + " most populated countries in the continent of " + entry.getKey() + ":\n");
+            List<Country> currentCountryList = entry.getValue();
+            List<Country> trimmedList;
 
-        Country temp;
-
-        for(Map.Entry<String, List<Country>> entry : trimmedContinentPopulations.entrySet()) {
-            List<Country> continentCountries = entry.getValue();
-            System.out.println(entry.getKey() + ":");
-
-            for(int i = 0; i < continentCountries.size() - 1; i++) {
-                for(int j = 0; j < continentCountries.size() - i - 1; j++){
-                    if(continentCountries.get(j).getPopulation() < continentCountries.get(j + 1).getPopulation()) {
-                        temp = continentCountries.get(j);
-                        continentCountries.set(j, continentCountries.get(j + 1));
-                        continentCountries.set(j + 1, temp);
-                    }
-                }
+            if (currentCountryList.size() < n) {
+                trimmedList = currentCountryList;
+            } else {
+                trimmedList = new ArrayList<>(currentCountryList.subList(0, n));
             }
 
-            for(Country country : continentCountries) {
-                System.out.println(country.getName() + " " + country.getPopulation());
+            for (Country country : trimmedList) {
+                System.out.println(count+1 + ". " + country.getName() + " " + country.getPopulation());
+                count++;
             }
 
             System.out.println("\n");
         }
-
     }
 
     public static HashMap<String, List<Country>> getCountryPopulationLargestToSmallestInRegion() {
@@ -174,42 +177,46 @@ public class U1PopulationDataReports {
         HashMap<String, List<Country>> regionPopulations = new HashMap<>();
         List<Country> tempList;
 
-        for(Country country : countries) {
-            if(!regionPopulations.containsKey(country.getRegion())) {
+        for (Country country : countries) {
+            if (!regionPopulations.containsKey(country.getRegion())) {
                 regionPopulations.put(country.getRegion(),
                         new ArrayList<>(Arrays.asList((country))));
-            }
-            else {
+            } else {
                 tempList = regionPopulations.get(country.getRegion());
                 tempList.add(country);
                 regionPopulations.put(country.getRegion(), tempList);
             }
         }
 
-        return regionPopulations;
-
-    }
-    // Prints a report on all the countries in a region organised by largest population to smallest.
-    public static void printCountryPopulationLargestToSmallestInRegion() {
-
         Country temp;
-        HashMap<String, List<Country>> regionPopulations = getCountryPopulationLargestToSmallestInRegion();
 
-        for(Map.Entry<String, List<Country>> entry : regionPopulations.entrySet()) {
+        for (Map.Entry<String, List<Country>> entry : regionPopulations.entrySet()) {
             List<Country> continentCountries = entry.getValue();
             System.out.println(entry.getKey() + ":");
 
-            for(int i = 0; i < continentCountries.size() - 1; i++) {
-                for(int j = 0; j < continentCountries.size() - i - 1; j++){
-                    if(continentCountries.get(j).getPopulation() < continentCountries.get(j + 1).getPopulation()) {
+            for (int i = 0; i < continentCountries.size() - 1; i++) {
+                for (int j = 0; j < continentCountries.size() - i - 1; j++) {
+                    if (continentCountries.get(j).getPopulation() < continentCountries.get(j + 1).getPopulation()) {
                         temp = continentCountries.get(j);
                         continentCountries.set(j, continentCountries.get(j + 1));
                         continentCountries.set(j + 1, temp);
                     }
                 }
             }
+        }
+        return regionPopulations;
+    }
 
-            for(Country country : continentCountries) {
+    // Prints a report on all the countries in a region organised by largest population to smallest.
+    public static void printCountryPopulationLargestToSmallestInRegion() {
+        Country temp;
+        HashMap<String, List<Country>> regionPopulations = getCountryPopulationLargestToSmallestInRegion();
+
+        for(Map.Entry<String, List<Country>> entry : regionPopulations.entrySet()) {
+            List<Country> regionCountries = entry.getValue();
+            System.out.println(entry.getKey() + ":");
+
+            for(Country country : regionCountries) {
                 System.out.println(country.getName() + " " + country.getPopulation());
             }
 
@@ -218,44 +225,27 @@ public class U1PopulationDataReports {
     }
 
     public static void printTopNPopulatedCountriesInRegion(int n) {
-        List<Country> countries = World.getInstance().getCountries();
         HashMap<String, List<Country>> regionPopulations = getCountryPopulationLargestToSmallestInRegion();
-
-        // remove the excess entries first. Trim
-        int runningTotal = 0;
-        HashMap<String, List<Country>> trimmedRegionPopulations = new HashMap<>();
-
-        // Use a running total to ensure only n amount of values get added.
+        int count;
+        //
         for (Map.Entry<String, List<Country>> entry : regionPopulations.entrySet()) {
-            if (runningTotal >= n) {
-                break;
-            }
-            trimmedRegionPopulations.put(entry.getKey(), entry.getValue());
-            runningTotal++;
-        }
+            count = 0;
+            System.out.println("The top " + n + " most populated countries in the region of " + entry.getKey() + ":\n");
+            List<Country> currentCountryList = entry.getValue();
+            List<Country> trimmedList;
 
-        Country temp;
-
-        for(Map.Entry<String, List<Country>> entry : trimmedRegionPopulations.entrySet()) {
-            List<Country> continentCountries = entry.getValue();
-            System.out.println(entry.getKey() + ":");
-
-            for(int i = 0; i < continentCountries.size() - 1; i++) {
-                for(int j = 0; j < continentCountries.size() - i - 1; j++){
-                    if(continentCountries.get(j).getPopulation() < continentCountries.get(j + 1).getPopulation()) {
-                        temp = continentCountries.get(j);
-                        continentCountries.set(j, continentCountries.get(j + 1));
-                        continentCountries.set(j + 1, temp);
-                    }
-                }
+            if (currentCountryList.size() < n) {
+                trimmedList = currentCountryList;
+            } else {
+                trimmedList = new ArrayList<>(currentCountryList.subList(0, n));
             }
 
-            for(Country country : continentCountries) {
-                System.out.println(country.getName() + " " + country.getPopulation());
+            for (Country country : trimmedList) {
+                System.out.println(count+1 + ". " + country.getName() + " " + country.getPopulation());
+                count++;
             }
 
             System.out.println("\n");
-
         }
     }
 
