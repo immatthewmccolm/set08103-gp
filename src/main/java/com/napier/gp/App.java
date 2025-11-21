@@ -15,6 +15,25 @@ import com.napier.gp.world.reports.U3LanguagesReport;
  * Main class used to run the program.
  */
 public class App {
+
+    public static int getUserValue() {
+        String menuInput = UserInput.getUserInput("Please enter your desired n value: ");
+
+        try {
+            System.out.print("\n");
+            int n = Integer.parseInt(menuInput);
+            if (n > 0) {
+                return n;
+            } else {
+                System.out.println("Error. Please enter a non-negative value above 0, that is also an integer. Please try again from the main menu.\n");
+            }
+        } catch (NumberFormatException e){
+            System.out.println("Error. Please ensure an integer is entered. Please try again from the main menu.\n");
+        }
+
+        return 0;
+    }
+
     public static void main(String[] args) {
 
         // Create new Application
@@ -77,8 +96,11 @@ public class App {
         // Gets user input and loads the appropriate method, otherwise loops until a valid input is received
         while (true) {
             String menuInput = UserInput.getUserInput("Enter your menu choice (0 to exit)");
+            // N declared as an int, to be utilised in cases which print the "top n values of..."
+            int n;
 
             switch (menuInput) {
+
                 case "0":
                     System.out.println("Exiting... Goodbye!");
                     return; // exits the method cleanly
@@ -96,15 +118,30 @@ public class App {
                     break;
 
                 case "4":
-                    U1PopulationDataReports.printTopNPopulatedCountriesInWorld(5);
+                    n = getUserValue();
+                    // This means the validation has failed, and an automatic 0 has been returned
+                    if (n == 0) {
+                        break;
+                    }
+                    U1PopulationDataReports.printTopNPopulatedCountriesInWorld(n);
                     break;
 
                 case "5":
-                    U1PopulationDataReports.printTopNPopulatedCountriesInContinent(5);
+                    n = getUserValue();
+                    // This means the validation has failed, and an automatic 0 has been returned
+                    if (n == 0) {
+                        break;
+                    }
+                    U1PopulationDataReports.printTopNPopulatedCountriesInContinent(n);
                     break;
 
                 case "6":
-                    U1PopulationDataReports.printTopNPopulatedCountriesInRegion(5);
+                    n = getUserValue();
+                    // This means the validation has failed, and an automatic 0 has been returned
+                    if (n == 0) {
+                        break;
+                    }
+                    U1PopulationDataReports.printTopNPopulatedCountriesInRegion(n);
                     break;
 
                 case "7":
@@ -128,22 +165,47 @@ public class App {
                     break;
 
                 case "12":
-                    U1PopulationDataReports.printTopNPopulatedCitiesInWorld(5);
+                    n = getUserValue();
+                    // This means the validation has failed, and an automatic 0 has been returned
+                    if (n == 0) {
+                        break;
+                    }
+                    U1PopulationDataReports.printTopNPopulatedCitiesInWorld(n);
                     break;
 
                 case "13":
-                    U1PopulationDataReports.printTopNPopulatedCitiesInContinent(5);
+                    n = getUserValue();
+                    // This means the validation has failed, and an automatic 0 has been returned
+                    if (n == 0) {
+                        break;
+                    }
+                    U1PopulationDataReports.printTopNPopulatedCitiesInContinent(n);
                     break;
 
                 case "14":
-                    U1PopulationDataReports.printTopNPopulatedCitiesInRegion(5);
+                    n = getUserValue();
+                    // This means the validation has failed, and an automatic 0 has been returned
+                    if (n == 0) {
+                        break;
+                    }
+                    U1PopulationDataReports.printTopNPopulatedCitiesInRegion(n);
                     break;
 
                 case "15":
-                    U1PopulationDataReports.printTopNPopulatedCitiesInCountry(5);
+                    n = getUserValue();
+                    // This means the validation has failed, and an automatic 0 has been returned
+                    if (n == 0) {
+                        break;
+                    }
+                    U1PopulationDataReports.printTopNPopulatedCitiesInCountry(n);
 
                 case "16":
-                    U1PopulationDataReports.printTopNLargestCitiesInDistrict(5);
+                    n = getUserValue();
+                    // This means the validation has failed, and an automatic 0 has been returned
+                    if (n == 0) {
+                        break;
+                    }
+                    U1PopulationDataReports.printTopNLargestCitiesInDistrict(n);
 
                 case "17":
                     U1PopulationDataReports.printCapitalCitiesLargestToSmallestInWorld();
@@ -158,15 +220,30 @@ public class App {
                     break;
 
                 case "20":
-                    U1PopulationDataReports.printTopNLargestCapitalCitiesInWorld(5);
+                    n = getUserValue();
+                    // This means the validation has failed, and an automatic 0 has been returned
+                    if (n == 0) {
+                        break;
+                    }
+                    U1PopulationDataReports.printTopNLargestCapitalCitiesInWorld(n);
                     break;
 
                 case "21":
-                    U1PopulationDataReports.printTopNLargestCapitalCitiesInContinent(5);
+                    n = getUserValue();
+                    // This means the validation has failed, and an automatic 0 has been returned
+                    if (n == 0) {
+                        break;
+                    }
+                    U1PopulationDataReports.printTopNLargestCapitalCitiesInContinent(n);
                     break;
 
                 case "22":
-                    U1PopulationDataReports.printTopNLargestCapitalCitiesInRegion(5);
+                    n = getUserValue();
+                    // This means the validation has failed, and an automatic 0 has been returned
+                    if (n == 0) {
+                        break;
+                    }
+                    U1PopulationDataReports.printTopNLargestCapitalCitiesInRegion(n);
                     break;
 
                 case "23":
