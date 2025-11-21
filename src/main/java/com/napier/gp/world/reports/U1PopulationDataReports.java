@@ -6,7 +6,7 @@ import com.napier.gp.world.City;
 import com.napier.gp.world.Country;
 import com.napier.gp.world.World;
 
-// Contains all code related to Use-Case 1: Produce propulation data reports, so they can be used by the organisation etc.
+// Contains all code related to Use-Case 1: Produce population data reports, so they can be used by the organisation etc.
 public class U1PopulationDataReports {
 
     // Will call all Use Case 1 related reports in one function for ease of use
@@ -607,48 +607,50 @@ public class U1PopulationDataReports {
 
     // ll the capital cities in the world organised by largest population to smallest.
     public static List<City> getCapitalCitiesLargestToSmallestInWorld() {
-    List<City> cities = World.getInstance().getCities();
-    List<Country> countries = World.getInstance().getCountries();
+        List<City> cities = World.getInstance().getCities();
+        List<Country> countries = World.getInstance().getCountries();
+        City temp;
 
-    HashMap<String, List<City>> continentPopulations = new HashMap<>();
-    List<City> capitalCities = new ArrayList<>();
+        List<City> capitalCities = new ArrayList<>();
 
-    for(Country country : countries) {
-        for (City city : cities) {
-            if (city.getID() == country.getCapital()) {
-                capitalCities.add(city);
+        for(Country country : countries) {
+            for (City city : cities) {
+                if (city.getID() == country.getCapital()) {
+                    capitalCities.add(city);
+                }
             }
         }
-    }
 
-    City temp;
 
-    for(int i = 0; i < capitalCities.size() - 1; i++) {
-        for(int j = 0; j < capitalCities.size() - i - 1; j++){
-            if(capitalCities.get(j).getPopulation() < cities.get(j + 1).getPopulation()) {
-                temp = cities.get(j);
-                capitalCities.set(j, cities.get(j + 1));
-                capitalCities.set(j + 1, temp);
+        for(int i = 0; i < capitalCities.size() - 1; i++) {
+            for(int j = 0; j < capitalCities.size() - i - 1; j++){
+                if(capitalCities.get(j).getPopulation() < capitalCities.get(j + 1).getPopulation()) {
+                    temp = capitalCities.get(j);
+                    capitalCities.set(j, capitalCities.get(j + 1));
+                    capitalCities.set(j + 1, temp);
+                }
             }
         }
-    }
 
-    return capitalCities;
-}
+        return capitalCities;
+    }
 
     public static void printCapitalCitiesLargestToSmallestInWorld() {
         List<City> cities = getCapitalCitiesLargestToSmallestInWorld();
+        System.out.println("The most populated cities in the world (L - S): \n");
 
         for(City city : cities) {
-            System.out.println(city.getName() + " " + city.getPopulation());
+            System.out.println("City name: " + city.getName() + " Population: " + city.getPopulation());
         }
     }
 
     public static void printTopNLargestCapitalCitiesInWorld(int n) {
         List<City> cities = getCapitalCitiesLargestToSmallestInWorld();
+        System.out.println("The top " + n + " populated cities in the world (L - S): \n");
 
         for (int i = 0; i < n; i++) {
-            System.out.println(cities.get(i));
+            City currentCity = cities.get(i);
+            System.out.println(i+1 + ". " + currentCity.getName() + currentCity.getPopulation());
         }
     }
 
@@ -704,36 +706,40 @@ public class U1PopulationDataReports {
         HashMap<String, List<City>> continentPopulations = getCapitalCitiesLargestToSmallestInContinent();
 
         for(Map.Entry<String, List<City>> entry : continentPopulations.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue());
+            System.out.println("The most populated capital cities for the continent of: " + entry.getKey() + "\n");
+
+            for (City city : entry.getValue()) {
+                System.out.println("City Name: " + city.getName() + " Population: " + city.getPopulation());
+            }
+
+            System.out.println("\n");
         }
     }
 
     public static void printTopNLargestCapitalCitiesInContinent(int n) {
         HashMap<String, List<City>> continentPopulations = getCapitalCitiesLargestToSmallestInContinent();
+        int count;
 
-        // remove the excess entries first. Trim
-        int runningTotal = 0;
-        HashMap<String, List<City>> trimmedContinentPopulations = new HashMap<>();
-
-        // Use a running total to ensure only n amount of values get added.
         for (Map.Entry<String, List<City>> entry : continentPopulations.entrySet()) {
-            if (runningTotal >= n) {
-                break;
+            count = 0;
+            System.out.println("The top " + n + " most populated capital cities in the continent of " + entry.getKey() + ":\n");
+            List<City> currentCityList = entry.getValue();
+            List<City> trimmedList;
+
+            if (currentCityList.size() < n) {
+                trimmedList = currentCityList;
+            } else {
+                trimmedList = new ArrayList<>(currentCityList.subList(0, n));
             }
-            trimmedContinentPopulations.put(entry.getKey(), entry.getValue());
-            runningTotal++;
-        }
 
-        for(Map.Entry<String, List<City>> entry : trimmedContinentPopulations.entrySet()) {
-            List<City> continentCountries = entry.getValue();
-            System.out.println(entry.getKey() + ":");
-
-            for(City city : continentCountries) {
-                System.out.println(city.getName() + " " + city.getPopulation());
+            for (City city : trimmedList) {
+                System.out.println(count+1 + ". " + city.getName() + " " + city.getPopulation());
+                count++;
             }
 
             System.out.println("\n");
         }
+
     }
 
     public static HashMap<String, List<City>> getCapitalCitiesLargestToSmallestInRegion() {
@@ -746,17 +752,12 @@ public class U1PopulationDataReports {
 
         // All the cities in a country organised by largest population to smallest.
         for(Country country : countries) {
-            if(!regionPopulations.containsKey(country.getRegion())) {
-                for(City city : cities) {
-                    if(city.getCountryCode() == country.getCode()) {
+            for(City city : country.getCities()) {
+                if(city.getID() == country.getCapital()) {
+                    if(!regionPopulations.containsKey(country.getRegion())) {
                         regionPopulations.put(country.getRegion(),
                                 new ArrayList<>(Arrays.asList(city)));
-                    }
-                }
-            }
-            else {
-                for(City city : cities) {
-                    if(city.getID() == country.getCapital()) {
+                    } else {
                         tempList = regionPopulations.get(country.getRegion());
                         tempList.add(city);
                         regionPopulations.put(country.getRegion(), tempList);
@@ -787,32 +788,35 @@ public class U1PopulationDataReports {
         HashMap<String, List<City>> regionPopulations = getCapitalCitiesLargestToSmallestInRegion();
 
         for(Map.Entry<String, List<City>> entry : regionPopulations.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue());
+            System.out.println("The most populated capital cities for the region of: " + entry.getKey() + "\n");
+
+            for (City city : entry.getValue()) {
+                System.out.println("City Name: " + city.getName() + " Population: " + city.getPopulation());
+            }
+
+            System.out.println("\n");
         }
     }
 
     public static void printTopNLargestCapitalCitiesInRegion(int n) {
         HashMap<String, List<City>> regionPopulations = getCapitalCitiesLargestToSmallestInRegion();
+        int count;
 
-        // remove the excess entries first. Trim
-        int runningTotal = 0;
-        HashMap<String, List<City>> trimmedContinentPopulations = new HashMap<>();
-
-        // Use a running total to ensure only n amount of values get added.
         for (Map.Entry<String, List<City>> entry : regionPopulations.entrySet()) {
-            if (runningTotal >= n) {
-                break;
+            count = 0;
+            System.out.println("The top " + n + " most populated capital cities in the region of " + entry.getKey() + ":\n");
+            List<City> currentCityList = entry.getValue();
+            List<City> trimmedList;
+
+            if (currentCityList.size() < n) {
+                trimmedList = currentCityList;
+            } else {
+                trimmedList = new ArrayList<>(currentCityList.subList(0, n));
             }
-            trimmedContinentPopulations.put(entry.getKey(), entry.getValue());
-            runningTotal++;
-        }
 
-        for(Map.Entry<String, List<City>> entry : trimmedContinentPopulations.entrySet()) {
-            List<City> continentCountries = entry.getValue();
-            System.out.println(entry.getKey() + ":");
-
-            for(City city : continentCountries) {
-                System.out.println(city.getName() + " " + city.getPopulation());
+            for (City city : trimmedList) {
+                System.out.println(count+1 + ". " + city.getName() + " " + city.getPopulation());
+                count++;
             }
 
             System.out.println("\n");
