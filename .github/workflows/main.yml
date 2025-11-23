@@ -1,4 +1,4 @@
-name: Does it work?
+name: CI
 on: push
 
 jobs:
