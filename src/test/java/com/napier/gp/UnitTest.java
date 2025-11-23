@@ -1,13 +1,13 @@
 package com.napier.gp;
 
-import com.napier.gp.world.Country;
-import com.napier.gp.world.City;
-import com.napier.gp.world.World;
+import com.napier.gp.world.*;
+import com.napier.gp.world.reports.*;
+
 import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,114 +16,201 @@ public class UnitTest {
 
     private final PrintStream originalOut = System.out;
     private ByteArrayOutputStream out;
+    private World world;
 
+    // ----------------------------------------------------------------------
+    //  Initialise REAL test data (NO Mockito)
+    // ----------------------------------------------------------------------
     @BeforeAll
     void loadWorldSampleData() {
-        World world = World.getInstance();
+        world = World.getInstance();
 
-        // Clear existing data (if any)
-        List<Country> countries = world.getCountries();
-        countries.clear();
+        world.getCountries().clear();
+        world.getCities().clear();
 
-        // Clear existing data (if any)
-        List<City> cities = world.getCities();
-        cities.clear();
+        // ----------------------
+        // Countries
+        // ----------------------
+        Country alpha = new Country("AAA", "Alpha", "Europe", "Region1",
+                0.0, 0, 0, 0.0, 0.0, 0.0,
+                "", "", "", 1, "");
 
-        // Add sample countries – dummy values for fields we don't care about
-        countries.add(new Country(
-                "CHN", "China", "Asia", "Eastern Asia",
-                9596961.0, 1949, 14,
-                76.9, 14342903.0, 0.0,
-                "Zhongguo", "Republic", "Head", 1, "CN"
-        ));
+        alpha.setPopulation(5_000_000);
 
-        countries.add(new Country(
-                "IND", "India", "Asia", "Southern Asia",
-                3287263.0, 1947, 13,
-                69.7, 2875142.0, 0.0,
-                "Bharat", "Republic", "Head", 2, "IN"
-        ));
+        Country beta = new Country("BBB", "Beta", "Europe", "Region1",
+                0.0, 0, 0, 0.0, 0.0, 0.0,
+                "", "", "", 3, "");
 
-        countries.add(new Country(
-                "USA", "United States", "North America", "North America",
-                9833517.0, 1776, 33,
-                78.9, 21433226.0, 0.0,
-                "United States", "Federal Republic", "Head", 3, "US"
-        ));
+        beta.setPopulation(3_000_000);
 
-        countries.add(new Country(
-                "GBR", "United Kingdom", "Europe", "British Islands",
-                243610.0, 1707, 67,
-                81.2, 2827113.0, 0.0,
-                "United Kingdom", "Constitutional Monarchy", "Head", 4, "GB"
-        ));
+        Country gamma = new Country("CCC", "Gamma", "Asia", "Region2",
+                0.0, 0, 0, 0.0, 0.0, 0.0,
+                "", "", "", 4, "");
 
-        countries.add(new Country(
-                "FRA", "France", "Europe", "Western Europe",
-                551695.0, 843, 65,
-                82.5, 2715518.0, 0.0,
-                "France", "Republic", "Head", 5, "FR"
-        ));
+        gamma.setPopulation(7_000_000);
 
-        cities.add(new City(
-                2974, "Paris", "FRA",
-                "Île-de-France", 2125246
-        ));
+        world.getCountries().addAll(Arrays.asList(gamma, alpha, beta));   // intentionally unsorted
 
-        cities.add(new City(
-                2975, "Marseille", "FRA",
-                "Provence-Alpes-Côte", 798430
-        ));
+        // ----------------------
+        // Cities
+        // ----------------------
+        City c1 = new City(1, "Alpha City", "AAA", "Alpha District", 2_000_000);
+        City c2 = new City(2, "Second Alpha City", "AAA", "Alpha District", 1_000_000);
+        City c3 = new City(3, "Beta City", "BBB", "Beta District", 1_500_000);
+        City c4 = new City(4, "Gamma City", "CCC", "Gamma District", 3_000_000);
 
-        cities.add(new City(
-                2976, "Lyon", "FRA",
-                "Rhône-Alpes", 445452
-        ));
+        world.getCities().addAll(Arrays.asList(c2, c4, c1, c3));
 
-        cities.add(new City(
-                2977, "Toulouse", "FRA",
-                "Midi-Pyrénées", 390350
-        ));
+        alpha.getCities().addAll(Arrays.asList(c1, c2));
+        beta.getCities().add(c3);
+        gamma.getCities().add(c4);
+
+        // ----------------------
+        // Languages
+        // ----------------------
+        alpha.getLanguages().add(new CountryLanguage("AAA", "English", "T", 40.0));
+        alpha.getLanguages().add(new CountryLanguage("AAA", "Spanish","T", 40.0));
+
+        beta.getLanguages().add(new CountryLanguage("BBB", "English","T", 30.0));
+        beta.getLanguages().add(new CountryLanguage("BBB", "Arabic","T", 70.0));
+
+        gamma.getLanguages().add(new CountryLanguage("CCC", "Chinese","T", 50.0));
+        gamma.getLanguages().add(new CountryLanguage("CCC", "Hindi","T", 50.0));
     }
-    // Runs before every test: redirect System.out so we can capture printed output
+
+    // Capture print output
     @BeforeEach
     void startCapture() {
         out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
     }
-    // Runs after every test: restore the original System.out
+
     @AfterEach
     void stopCapture() {
         System.setOut(originalOut);
     }
-    // Test 1: Check the world population report returns the expected value
+
+    // ----------------------------------------------------------------------
+    // U1PopulationDataReports tests (UNHIGHLIGHTED methods)
+    // ----------------------------------------------------------------------
+
     @Test
-    void checkWorldPopulation() {
-        assertEquals(192, U2PopulationReports.returnWorldPopulation());
+    void testGetCountryPopulationLargestToSmallestInWorld() {
+        List<Country> result =
+                U1PopulationDataReports.getCountryPopulationLargestToSmallestInWorld();
+
+        assertEquals("Gamma", result.get(0).getName());
+        assertEquals("Alpha", result.get(1).getName());
+        assertEquals("Beta", result.get(2).getName());
     }
-    // Test 2: Check that city population lookup works correctly
+
     @Test
-    void checkCityPopulation() {
-        assertEquals(2125246, U2PopulationReports.printCityPopulationByKey("Paris"));
+    void testGetCitiesPopulationLargestToSmallestInWorld() {
+        List<City> result = U1PopulationDataReports.getCitiesPopulationLargestToSmallestInWorld();
+
+        assertEquals("Gamma City", result.get(0).getName());
+        assertEquals("Alpha City", result.get(1).getName());
     }
-    // Test 3: Check that district population lookup works correctly
+
     @Test
-    void checkDistrictPopulation() {
-        assertEquals(2125246, U2PopulationReports.printDistrictPopulationByKey("Île-de-France"));
+    void testGetCountryPopulationLargestToSmallestInContinent() {
+        Map<String, List<Country>> map =
+                U1PopulationDataReports.getCountryPopulationLargestToSmallestInContinent();
+
+        assertEquals("Alpha", map.get("Europe").get(0).getName());
+        assertEquals("Beta", map.get("Europe").get(1).getName());
     }
-    // Test 4: Check that country population lookup works correctly
+
     @Test
-    void checkCountryPopulation() {
-        assertEquals(65, U2PopulationReports.printCountryPopulationByKey("France"));
+    void testGetCountryPopulationLargestToSmallestInRegion() {
+        Map<String, List<Country>> map =
+                U1PopulationDataReports.getCountryPopulationLargestToSmallestInRegion();
+
+        assertEquals("Alpha", map.get("Region1").get(0).getName());
+        assertEquals("Beta", map.get("Region1").get(1).getName());
+        assertEquals("Gamma", map.get("Region2").get(0).getName());
     }
-    // Test 5: Check that region population lookup works correctly
+
     @Test
-    void checkRegionPopulation() {
-        assertEquals(65, U2PopulationReports.printRegionPopulationByKey("Western Europe"));
+    void testGetCapitalCitiesLargestToSmallestInWorld() {
+        List<City> caps =
+                U1PopulationDataReports.getCapitalCitiesLargestToSmallestInWorld();
+
+        assertEquals("Gamma City", caps.get(0).getName());
+        assertEquals("Alpha City", caps.get(1).getName());
+        assertEquals("Beta City", caps.get(2).getName());
     }
-    // Test 6: Check that continent population lookup works correctly
+
     @Test
-    void checkContinentPopulation() {
-        assertEquals(132, U2PopulationReports.printContinentPopulationByKey("Europe"));
+    void testGetCityPopulationLargestToSmallestInDistrict() {
+        Map<String, List<City>> map =
+                U1PopulationDataReports.getCityPopulationLargestToSmallestInDistrict();
+
+        List<City> alphaDistrict = map.get("Alpha District");
+
+        assertEquals(2, alphaDistrict.size());
+        assertEquals("Alpha City", alphaDistrict.get(0).getName());
+        assertEquals("Second Alpha City", alphaDistrict.get(1).getName());
+    }
+
+    // ----------------------------------------------------------------------
+    // U2PopulationReports tests (UNHIGHLIGHTED methods)
+    // ----------------------------------------------------------------------
+
+    @Test
+    void testPrintWorldPopulation_NoError() {
+        assertDoesNotThrow(() -> U2PopulationReports.printWorldPopulation());
+    }
+
+    @Test
+    void testPrintContinentPopulations_NoError() {
+        assertDoesNotThrow(() -> U2PopulationReports.printContinentPopulations());
+    }
+
+    @Test
+    void testPrintRegionPopulations_NoError() {
+        assertDoesNotThrow(() -> U2PopulationReports.printRegionPopulations());
+    }
+
+    @Test
+    void testPrintCountryPopulations_NoError() {
+        assertDoesNotThrow(() -> U2PopulationReports.printCountryPopulations());
+    }
+
+    @Test
+    void testPrintDistrictPopulations_NoError() {
+        assertDoesNotThrow(() -> U2PopulationReports.printDistrictPopulations());
+    }
+
+    @Test
+    void testPrintCityPopulations_NoError() {
+        assertDoesNotThrow(() -> U2PopulationReports.printCityPopulations());
+    }
+
+    // ----------------------------------------------------------------------
+    // U3LanguagesReport tests
+    // ----------------------------------------------------------------------
+
+    @Test
+    void testGetWorldwideLanguageSpeakers() {
+        Map<String, Long> map =
+                U3LanguagesReport.getWorldwideLanguageSpeakers();
+
+        assertEquals(2_900_000L, map.get("English"));
+
+        assertTrue(map.containsKey("Chinese"));
+        assertTrue(map.containsKey("Hindi"));
+        assertTrue(map.containsKey("Spanish"));
+        assertTrue(map.containsKey("Arabic"));
+    }
+
+    @Test
+    void testGetWorldwideLanguageSpeakersPercentages_Sorted() {
+        List<Map.Entry<String, Double>> list =
+                U3LanguagesReport.getWorldwideLanguageSpeakersPercentages();
+
+        for (int i = 0; i < list.size() - 1; i++) {
+            assertTrue(list.get(i).getValue() >= list.get(i + 1).getValue());
+        }
     }
 }
