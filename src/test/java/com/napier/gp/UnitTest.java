@@ -59,7 +59,7 @@ public class UnitTest {
         City c3 = new City(3, "Beta City", "BBB", "Beta District", 1_500_000);
         City c4 = new City(4, "Gamma City", "CCC", "Gamma District", 3_000_000);
 
-        world.getCities().addAll(Arrays.asList(c2, c4, c1, c3));
+        world.getCities().addAll(Arrays.asList(c2, c4, c1, c3)); // intentionally unsorted
 
         alpha.getCities().addAll(Arrays.asList(c1, c2));
         beta.getCities().add(c3);
@@ -68,14 +68,14 @@ public class UnitTest {
         // ----------------------
         // Languages
         // ----------------------
-        alpha.getLanguages().add(new CountryLanguage("AAA", "English", "T", 40.0));
-        alpha.getLanguages().add(new CountryLanguage("AAA", "Spanish","T", 40.0));
+        alpha.getLanguages().add(new CountryLanguage("AAA", "English", "T", 60.0));
+        alpha.getLanguages().add(new CountryLanguage("AAA", "Spanish", "T", 40.0));
 
-        beta.getLanguages().add(new CountryLanguage("BBB", "English","T", 30.0));
-        beta.getLanguages().add(new CountryLanguage("BBB", "Arabic","T", 70.0));
+        beta.getLanguages().add(new CountryLanguage("BBB", "English", "T", 30.0));
+        beta.getLanguages().add(new CountryLanguage("BBB", "Arabic", "T", 70.0));
 
-        gamma.getLanguages().add(new CountryLanguage("CCC", "Chinese","T", 50.0));
-        gamma.getLanguages().add(new CountryLanguage("CCC", "Hindi","T", 50.0));
+        gamma.getLanguages().add(new CountryLanguage("CCC", "Chinese", "T", 50.0));
+        gamma.getLanguages().add(new CountryLanguage("CCC", "Hindi", "T", 50.0));
     }
 
     // Capture print output
@@ -106,8 +106,10 @@ public class UnitTest {
 
     @Test
     void testGetCitiesPopulationLargestToSmallestInWorld() {
-        List<City> result = U1PopulationDataReports.getCitiesPopulationLargestToSmallestInWorld();
+        List<City> result =
+                U1PopulationDataReports.getCitiesPopulationLargestToSmallestInWorld();
 
+        assertEquals(4, result.size());
         assertEquals("Gamma City", result.get(0).getName());
         assertEquals("Alpha City", result.get(1).getName());
     }
@@ -154,6 +156,158 @@ public class UnitTest {
     }
 
     // ----------------------------------------------------------------------
+    // U1PopulationDataReports print() methods
+    // ----------------------------------------------------------------------
+
+    @Test
+    void testPrintCountryPopulationLargestToSmallestInWorld_OutputContainsCountriesInOrder() {
+        U1PopulationDataReports.printCountryPopulationLargestToSmallestInWorld();
+        String output = out.toString();
+
+        assertTrue(output.contains("Gamma 7000000"));
+        assertTrue(output.contains("Alpha 5000000"));
+        assertTrue(output.contains("Beta 3000000"));
+
+        int idxGamma = output.indexOf("Gamma 7000000");
+        int idxAlpha = output.indexOf("Alpha 5000000");
+        int idxBeta  = output.indexOf("Beta 3000000");
+
+        assertTrue(idxGamma != -1 && idxAlpha != -1 && idxBeta != -1);
+        assertTrue(idxGamma < idxAlpha);
+        assertTrue(idxAlpha < idxBeta);
+    }
+
+    @Test
+    void testPrintCountryPopulationLargestToSmallestInContinent_OutputContainsContinentsAndCountries() {
+        U1PopulationDataReports.printCountryPopulationLargestToSmallestInContinent();
+        String output = out.toString();
+
+        // Should have sections for Europe and Asia
+        assertTrue(output.contains("Europe:"));
+        assertTrue(output.contains("Asia:"));
+
+        // Europe section should mention Alpha and Beta
+        assertTrue(output.contains("Alpha 5000000"));
+        assertTrue(output.contains("Beta 3000000"));
+
+        // Asia section should mention Gamma
+        assertTrue(output.contains("Gamma 7000000"));
+    }
+
+    @Test
+    void testPrintCountryPopulationLargestToSmallestInRegion_OutputContainsRegionsAndCountries() {
+        U1PopulationDataReports.printCountryPopulationLargestToSmallestInRegion();
+        String output = out.toString();
+
+        assertTrue(output.contains("Region1:"));
+        assertTrue(output.contains("Region2:"));
+        assertTrue(output.contains("Alpha 5000000"));
+        assertTrue(output.contains("Beta 3000000"));
+        assertTrue(output.contains("Gamma 7000000"));
+    }
+
+    @Test
+    void testPrintCityPopulationLargestToSmallestInWorld_OutputContainsCitiesInOrder() {
+        U1PopulationDataReports.printCityPopulationLargestToSmallestInWorld();
+        String output = out.toString();
+
+        assertTrue(output.contains("Population of all cities in world"));
+        assertTrue(output.contains("Gamma City 3000000"));
+        assertTrue(output.contains("Alpha City 2000000"));
+        assertTrue(output.contains("Beta City 1500000"));
+        assertTrue(output.contains("Second Alpha City 1000000"));
+
+        int idxGamma = output.indexOf("Gamma City 3000000");
+        int idxAlpha = output.indexOf("Alpha City 2000000");
+        int idxBeta  = output.indexOf("Beta City 1500000");
+        int idxSecond = output.indexOf("Second Alpha City 1000000");
+
+        assertTrue(idxGamma != -1 && idxAlpha != -1 && idxBeta != -1 && idxSecond != -1);
+        assertTrue(idxGamma < idxAlpha);
+        assertTrue(idxAlpha < idxBeta);
+        assertTrue(idxBeta < idxSecond);
+    }
+
+    @Test
+    void testPrintCityPopulationLargestToSmallestInContinent_OutputContainsHeaderAndCities() {
+        U1PopulationDataReports.printCityPopulationLargestToSmallestInContinent();
+        String output = out.toString();
+
+        assertTrue(output.contains("Populated cities largest to smallest for the continent of: Europe"));
+        assertTrue(output.contains("Populated cities largest to smallest for the continent of: Asia"));
+
+        // Europe cities
+        assertTrue(output.contains("Alpha City 2000000"));
+        assertTrue(output.contains("Second Alpha City 1000000"));
+        assertTrue(output.contains("Beta City 1500000"));
+
+        // Asia cities
+        assertTrue(output.contains("Gamma City 3000000"));
+    }
+
+    @Test
+    void testPrintCityPopulationLargestToSmallestInRegion_OutputContainsRegionsAndCities() {
+        U1PopulationDataReports.printCityPopulationLargestToSmallestInRegion();
+        String output = out.toString();
+
+        assertTrue(output.contains("Region1:"));
+        assertTrue(output.contains("Region2:"));
+
+        assertTrue(output.contains("Alpha City 2000000"));
+        assertTrue(output.contains("Second Alpha City 1000000"));
+        assertTrue(output.contains("Beta City 1500000"));
+        assertTrue(output.contains("Gamma City 3000000"));
+    }
+
+    @Test
+    void testPrintCapitalCitiesLargestToSmallestInWorld_OutputContainsCapitalsInOrder() {
+        U1PopulationDataReports.printCapitalCitiesLargestToSmallestInWorld();
+        String output = out.toString();
+
+        assertTrue(output.contains("The most populated cities in the world (L - S):"));
+        assertTrue(output.contains("City name: Gamma City Population: 3000000"));
+        assertTrue(output.contains("City name: Alpha City Population: 2000000"));
+        assertTrue(output.contains("City name: Beta City Population: 1500000"));
+
+        int idxGamma = output.indexOf("City name: Gamma City Population: 3000000");
+        int idxAlpha = output.indexOf("City name: Alpha City Population: 2000000");
+        int idxBeta  = output.indexOf("City name: Beta City Population: 1500000");
+
+        assertTrue(idxGamma != -1 && idxAlpha != -1 && idxBeta != -1);
+        assertTrue(idxGamma < idxAlpha);
+        assertTrue(idxAlpha < idxBeta);
+    }
+
+    @Test
+    void testPrintCapitalCitiesLargestToSmallestInContinent_OutputContainsContinentsAndCapitals() {
+        U1PopulationDataReports.printCapitalCitiesLargestToSmallestInContinent();
+        String output = out.toString();
+
+        assertTrue(output.contains("The most populated capital cities for the continent of: Europe"));
+        assertTrue(output.contains("The most populated capital cities for the continent of: Asia"));
+
+        // Europe capitals
+        assertTrue(output.contains("City Name: Alpha City Population: 2000000"));
+        assertTrue(output.contains("City Name: Beta City Population: 1500000"));
+
+        // Asia capitals
+        assertTrue(output.contains("City Name: Gamma City Population: 3000000"));
+    }
+
+    @Test
+    void testPrintCapitalCitiesLargestToSmallestInRegion_OutputContainsRegionsAndCapitals() {
+        U1PopulationDataReports.printCapitalCitiesLargestToSmallestInRegion();
+        String output = out.toString();
+
+        assertTrue(output.contains("The most populated capital cities for the region of: Region1"));
+        assertTrue(output.contains("The most populated capital cities for the region of: Region2"));
+
+        assertTrue(output.contains("City Name: Alpha City Population: 2000000"));
+        assertTrue(output.contains("City Name: Beta City Population: 1500000"));
+        assertTrue(output.contains("City Name: Gamma City Population: 3000000"));
+    }
+
+    // ----------------------------------------------------------------------
     // U2PopulationReports tests (UNHIGHLIGHTED methods)
     // ----------------------------------------------------------------------
 
@@ -196,9 +350,13 @@ public class UnitTest {
         Map<String, Long> map =
                 U3LanguagesReport.getWorldwideLanguageSpeakers();
 
-        assertEquals(2_900_000L, map.get("English"));
+        assertNotNull(map);
+
+        // English = Alpha 60% of 5M = 3M, + Beta 30% of 3M = 0.9M => 3.9M
+        assertEquals(3_900_000L, map.get("English"));
 
         assertTrue(map.containsKey("Chinese"));
+        assertTrue(map.containsKey("English"));
         assertTrue(map.containsKey("Hindi"));
         assertTrue(map.containsKey("Spanish"));
         assertTrue(map.containsKey("Arabic"));
@@ -212,5 +370,24 @@ public class UnitTest {
         for (int i = 0; i < list.size() - 1; i++) {
             assertTrue(list.get(i).getValue() >= list.get(i + 1).getValue());
         }
+    }
+
+    // ----------------------------------------------------------------------
+    // U3LanguagesReport print() method
+    // ----------------------------------------------------------------------
+
+    @Test
+    void testU3LanguagesReportPrint_OutputContainsAllRequiredLanguages() {
+        U3LanguagesReport.print();
+        String output = out.toString();
+
+        assertTrue(output.contains("Chinese"));
+        assertTrue(output.contains("English"));
+        assertTrue(output.contains("Hindi"));
+        assertTrue(output.contains("Spanish"));
+        assertTrue(output.contains("Arabic"));
+
+        // Should also contain a percent sign for the percentages
+        assertTrue(output.contains("%"));
     }
 }
