@@ -12,25 +12,25 @@ import java.util.Map;
 // Contains all code related to Use-Case 2: Produce population reports as a baseline to compare to other reports etc.
 public class U2PopulationReports {
     // Will call all Use Case 2 related reports in one function for ease of use
-    public static void printAll(Connection con) {
-        System.out.println("\nWorld Population:");
-        printWorldPopulation();
-
-        System.out.println("\nContinental Populations:");
-        printContinentPopulations();
-
-        System.out.println("\nRegion Populations:");
-        printRegionPopulations();
-
-        System.out.println("\nCountry Populations:");
-        printCountryPopulations();
-
-        System.out.println("\nDistrict Populations:");
-        printDistrictPopulations();
-
-        System.out.println("\nCity Populations:");
-        printCityPopulations();
-    }
+//    public static void printAll(Connection con) {
+//        System.out.println("\nWorld Population:");
+//        printWorldPopulation();
+//
+//        System.out.println("\nContinental Populations:");
+//        printContinentPopulations();
+//
+//        System.out.println("\nRegion Populations:");
+//        printRegionPopulations();
+//
+//        System.out.println("\nCountry Populations:");
+//        printCountryPopulations();
+//
+//        System.out.println("\nDistrict Populations:");
+//        printDistrictPopulations();
+//
+//        System.out.println("\nCity Populations:");
+//        printCityPopulations();
+//    }
 
     // Prints a report on the total population of the world
     public static void printWorldPopulation() {
