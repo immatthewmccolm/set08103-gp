@@ -12,7 +12,7 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class UnitTest {
+public class U1UnitTest {
 
     private final PrintStream originalOut = System.out;
     private ByteArrayOutputStream out;
@@ -545,84 +545,5 @@ public class UnitTest {
         assertTrue(output.contains("country of: Alpha"));
         assertTrue(output.contains("country of: Beta"));
         assertTrue(output.contains("country of: Gamma"));
-    }
-
-    // ----------------------------------------------------------------------
-    // U2PopulationReports tests (UNHIGHLIGHTED methods)
-    // ----------------------------------------------------------------------
-
-    @Test
-    void testPrintWorldPopulation_NoError() {
-        assertDoesNotThrow(() -> U2PopulationReports.printWorldPopulation());
-    }
-
-    @Test
-    void testPrintContinentPopulations_NoError() {
-        assertDoesNotThrow(() -> U2PopulationReports.printContinentPopulations());
-    }
-
-    @Test
-    void testPrintRegionPopulations_NoError() {
-        assertDoesNotThrow(() -> U2PopulationReports.printRegionPopulations());
-    }
-
-    @Test
-    void testPrintCountryPopulations_NoError() {
-        assertDoesNotThrow(() -> U2PopulationReports.printCountryPopulations());
-    }
-
-    @Test
-    void testPrintDistrictPopulations_NoError() {
-        assertDoesNotThrow(() -> U2PopulationReports.printDistrictPopulations());
-    }
-
-    @Test
-    void testPrintCityPopulations_NoError() {
-        assertDoesNotThrow(() -> U2PopulationReports.printCityPopulations());
-    }
-
-    // ----------------------------------------------------------------------
-    // U3LanguagesReport tests
-    // ----------------------------------------------------------------------
-
-    @Test
-    void testGetWorldwideLanguageSpeakers() {
-        Map<String, Long> map =
-                U3LanguagesReport.getWorldwideLanguageSpeakers();
-
-        // English: 40% of 5M (Alpha) + 30% of 3M (Beta) = 2.9M
-        assertEquals(2_900_000L, map.get("English"));
-
-        assertTrue(map.containsKey("Chinese"));
-        assertTrue(map.containsKey("Hindi"));
-        assertTrue(map.containsKey("Spanish"));
-        assertTrue(map.containsKey("Arabic"));
-    }
-
-    @Test
-    void testGetWorldwideLanguageSpeakersPercentages_Sorted() {
-        List<Map.Entry<String, Double>> list =
-                U3LanguagesReport.getWorldwideLanguageSpeakersPercentages();
-
-        for (int i = 0; i < list.size() - 1; i++) {
-            assertTrue(list.get(i).getValue() >= list.get(i + 1).getValue());
-        }
-    }
-
-    // ----------------------------------------------------------------------
-    // U3LanguagesReport print() method
-    // ----------------------------------------------------------------------
-
-    @Test
-    void testLanguagesReportPrint() {
-        U3LanguagesReport.print();
-        String output = out.toString();
-
-        assertTrue(output.contains("Chinese"));
-        assertTrue(output.contains("English"));
-        assertTrue(output.contains("Hindi"));
-        assertTrue(output.contains("Spanish"));
-        assertTrue(output.contains("Arabic"));
-        assertTrue(output.contains("%"));
     }
 }
