@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import java.sql.Connection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,13 +22,13 @@ public class PopulateWorldUnitTest {
     void setUp() {
         world = World.getInstance();
 
-        // Clear any existing data so each test starts from a known state
+        // Clear existing data so each test starts from a known state
         world.getCountries().clear();
         world.getCities().clear();
         world.getLanguages().clear();
 
         // --------------------------------------------------------------
-        // Countries (mirroring the constructor style from UnitTest.java)
+        // Countries (same style as your existing UnitTest)
         // --------------------------------------------------------------
         Country alpha = new Country(
                 "AAA", "Alpha", "Europe", "Region1",
@@ -87,7 +88,7 @@ public class PopulateWorldUnitTest {
         // Act
         PopulateWorld.PopulateCitiesAndLanguages();
 
-        // Find our countries back from the World singleton
+        // Find countries back from the World singleton
         Country alpha = world.getCountries().stream()
                 .filter(c -> c.getCode().equals("AAA"))
                 .findFirst()
@@ -161,4 +162,23 @@ public class PopulateWorldUnitTest {
         assertTrue(world.getCities().isEmpty(), "Cities should still be empty");
         assertTrue(world.getLanguages().isEmpty(), "Languages should still be empty");
     }
+
+    // -----------------------------------------------------------------
+    // Tests for PopulateWorld.TryPopulateWorld(Connection)
+    // -----------------------------------------------------------------
+
+    @Test
+    void tryPopulateWorld_withNullConnection_doesNotThrow() {
+        // The method wraps its body in a try/catch, so passing null should not
+        // cause an exception to escape (NullPointerException should be caught).
+        assertDoesNotThrow(() -> PopulateWorld.TryPopulateWorld(null),
+                "TryPopulateWorld should not throw even if connection is null");
+    }
+
+    /**
+     * Optional: if you later want to be extra thorough, you could create a tiny
+     * fake Connection implementation that throws from createStatement(), and
+     * assert that TryPopulateWorld still doesn't rethrow. For now, calling with
+     * null is enough to execute the method and give you coverage.
+     */
 }
