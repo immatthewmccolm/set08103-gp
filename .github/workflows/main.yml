@@ -13,8 +13,14 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-      - name: Unit Tests
-        run: mvn -Dtest=com.napier.gp.UnitTest test
+      - name: U1 Unit Tests
+        run: mvn -Dtest=com.napier.gp.U1UnitTest test
+      - name: U2 Unit Tests
+        run: mvn -Dtest=com.napier.gp.U2UnitTest test
+      - name: U1 Unit Tests
+        run: mvn -Dtest=com.napier.gp.U3UnitTest test
+      - name: Populate World Unit Tests
+        run: mvn -Dtest=com.napier.gp.PopulateWorldUnitTest test
       - name: List dirs
         run: |
           cd ./target/site/jacoco
