@@ -174,11 +174,4 @@ public class PopulateWorldUnitTest {
         assertDoesNotThrow(() -> PopulateWorld.TryPopulateWorld(null),
                 "TryPopulateWorld should not throw even if connection is null");
     }
-
-    /**
-     * Optional: if you later want to be extra thorough, you could create a tiny
-     * fake Connection implementation that throws from createStatement(), and
-     * assert that TryPopulateWorld still doesn't rethrow. For now, calling with
-     * null is enough to execute the method and give you coverage.
-     */
 }
