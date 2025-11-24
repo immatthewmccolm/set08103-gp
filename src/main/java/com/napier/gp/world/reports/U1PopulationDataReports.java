@@ -10,37 +10,37 @@ import com.napier.gp.world.World;
 public class U1PopulationDataReports {
 
     // Will call all Use Case 1 related reports in one function for ease of use
-    static void printAll() {
-        //Country reports
-        printCountryPopulationLargestToSmallestInWorld();
-        printTopNPopulatedCountriesInWorld(5);
-        printCountryPopulationLargestToSmallestInContinent();
-        printTopNPopulatedCountriesInContinent(5);
-        printCountryPopulationLargestToSmallestInRegion();
-        printTopNPopulatedCountriesInRegion(5);
-        //City Reports
-        printCityPopulationLargestToSmallestInWorld();
-        printTopNPopulatedCitiesInWorld(5);
-        printCityPopulationLargestToSmallestInContinent();
-        printTopNPopulatedCitiesInContinent(5);
-        printCityPopulationLargestToSmallestInRegion();
-        printTopNPopulatedCitiesInRegion(5);
-        printCityPopulationLargestToSmallestInCountry();
-        printTopNPopulatedCitiesInCountry(5);
-        printCitiesLargestToSmallestInDistrict();
-        printTopNLargestCitiesInDistrict(5);
-        //Capital City reports
-        printCapitalCitiesLargestToSmallestInWorld();
-        printTopNLargestCapitalCitiesInWorld(5);
-        printCapitalCitiesLargestToSmallestInContinent();
-        printTopNLargestCapitalCitiesInContinent(5);
-        printCapitalCitiesLargestToSmallestInRegion();
-        printTopNLargestCapitalCitiesInRegion(5);
-        // Population of people in and not in cities
-        printPeopleInAndNotInCitiesInContinent();
-        printPeopleInAndNotInCitiesInRegion();
-        printPeopleInAndNotInCitiesInCountry();
-    }
+//    static void printAll() {
+//        //Country reports
+//        printCountryPopulationLargestToSmallestInWorld();
+//        printTopNPopulatedCountriesInWorld(5);
+//        printCountryPopulationLargestToSmallestInContinent();
+//        printTopNPopulatedCountriesInContinent(5);
+//        printCountryPopulationLargestToSmallestInRegion();
+//        printTopNPopulatedCountriesInRegion(5);
+//        //City Reports
+//        printCityPopulationLargestToSmallestInWorld();
+//        printTopNPopulatedCitiesInWorld(5);
+//        printCityPopulationLargestToSmallestInContinent();
+//        printTopNPopulatedCitiesInContinent(5);
+//        printCityPopulationLargestToSmallestInRegion();
+//        printTopNPopulatedCitiesInRegion(5);
+//        printCityPopulationLargestToSmallestInCountry();
+//        printTopNPopulatedCitiesInCountry(5);
+//        printCitiesLargestToSmallestInDistrict();
+//        printTopNLargestCitiesInDistrict(5);
+//        //Capital City reports
+//        printCapitalCitiesLargestToSmallestInWorld();
+//        printTopNLargestCapitalCitiesInWorld(5);
+//        printCapitalCitiesLargestToSmallestInContinent();
+//        printTopNLargestCapitalCitiesInContinent(5);
+//        printCapitalCitiesLargestToSmallestInRegion();
+//        printTopNLargestCapitalCitiesInRegion(5);
+//        // Population of people in and not in cities
+//        printPeopleInAndNotInCitiesInContinent();
+//        printPeopleInAndNotInCitiesInRegion();
+//        printPeopleInAndNotInCitiesInCountry();
+//    }
 
     // Prints a report on all the countries in the world organised by largest population to smallest.
     public static List<Country> getCountryPopulationLargestToSmallestInWorld() {

@@ -10,12 +10,17 @@
 - Licence  
   [![LICENSE](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
 
+Codecov
+
+[![codecov](https://codecov.io/gh/immatthewmccolm/set08103-gp/graph/badge.svg?token=JSPE7EYVJR)](https://codecov.io/gh/immatthewmccolm/set08103-gp)
 
 
-| **Group Name**    | Friday 4pm Group 8 |           |          |          |
-|-------------------|--------------------|-----------|----------|----------|
+
+
+| **Group Name**    | Friday 4pm Group 8 |          |         |          |
+|-------------------|--------------------|----------|---------|----------|
 | **Matric**        | **CR 1**           | **CR 2** | **CR 3** | **CR 4** |
-| **40712747 (MM)** | 25                 |         |        |        |
-| **40719743 (AS)** | 25                 |         |        |        |
-| **40737954 (JR)** | 25                 |         |        |        |
-| **40479323 (CP)** | 25                 |         |        |        |
+| **40712747 (MM)** | 25                 | 25       | 25      | 25       |
+| **40719743 (AS)** | 25                 | 25       | 25      | 25       |
+| **40737954 (JR)** | 25                 | 25       | 25      | 25       |
+| **40479323 (CP)** | 25                 | 25       | 25      | 25       |
