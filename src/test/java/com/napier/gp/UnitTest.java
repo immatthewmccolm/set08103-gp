@@ -441,15 +441,37 @@ public class UnitTest {
 
     @Test
     void testPrintTopNLargestCitiesInDistrict() {
+        // n = 1 → top 1 capital city per continent
         U1PopulationDataReports.printTopNLargestCitiesInDistrict(1);
         String output = out.toString();
 
-        assertTrue(output.contains("most populated cities in the district of"));
-        // Implementation uses capital city populations; just ensure these appear.
-        assertTrue(output.contains("Gamma City 3000000"));
-        assertTrue(output.contains("Alpha City 2000000"));
-        assertTrue(output.contains("Beta City 1500000"));
+        // Sections should be per *continent* (even though label says "district")
+        assertTrue(
+                output.contains("The top 1 most populated cities in the district of Europe"),
+                "Should have a section for Europe"
+        );
+        assertTrue(
+                output.contains("The top 1 most populated cities in the district of Asia"),
+                "Should have a section for Asia"
+        );
+
+        // For our test data:
+        // Europe capitals: Alpha City (2,000,000), Beta City (1,500,000) → top 1 = Alpha City
+        // Asia capitals:   Gamma City (3,000,000)                       → top 1 = Gamma City
+
+        assertTrue(
+                output.contains("1. Alpha City 2000000"),
+                "Europe section should list Alpha City as top city"
+        );
+        assertTrue(
+                output.contains("1. Gamma City 3000000"),
+                "Asia section should list Gamma City as top city"
+        );
+
+        // We deliberately do NOT assert on Beta City, because with n = 1 it should not appear.
     }
+
+
 
     // Top-N capital city reports
 
