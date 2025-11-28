@@ -21,6 +21,14 @@ jobs:
         run: mvn -Dtest=com.napier.gp.U3UnitTest test
       - name: Populate World Unit Test
         run: mvn -Dtest=com.napier.gp.PopWorldUnitTest test
+      - name: City Class Unit Test
+        run: mvn -Dtest=com.napier.gp.CityUnitTest test
+      - name: Country Class Unit Test
+        run: mvn -Dtest=com.napier.gp.CountryUnitTest test
+      - name: CountryLanguage Class Unit Test
+        run: mvn -Dtest=com.napier.gp.CountryLanguageUnitTest test
+      - name: World Class Unit Test
+        run: mvn -Dtest=com.napier.gp.WorldUnitTest test
       - name: List dirs
         run: |
           cd ./target/site/jacoco
