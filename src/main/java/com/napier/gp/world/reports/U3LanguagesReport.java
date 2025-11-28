@@ -26,8 +26,8 @@ public class U3LanguagesReport {
         for(Country country : World.getInstance().getCountries()) {
             worldPopulation += country.getPopulation();
         }
-        // world pop end
 
+        // world pop end
         List<Map.Entry<String, Double>> percentages = getWorldwideLanguageSpeakersPercentages();
 
         for(Map.Entry<String, Long> entry : requiredLanguagePopulations.entrySet()) {
@@ -46,9 +46,12 @@ public class U3LanguagesReport {
             }
         }
 
+        ArrayList<String> duplicateTracker = new ArrayList<String>();
+
         for(Map.Entry<String, Double> entry : percentages) {
             for(Map.Entry<String, Long> entry2 : requiredLanguagePopulations.entrySet()) {
-                if(entry2.getKey().equals(entry.getKey())) {
+                if( ( entry2.getKey().equals(entry.getKey()) ) && !(duplicateTracker.contains(entry.getKey()))) {
+                    duplicateTracker.add(entry.getKey());
                     System.out.println(entry.getKey() + " " + entry2.getValue() + " " + entry.getValue() + "%");
                 }
             }
@@ -101,7 +104,6 @@ public class U3LanguagesReport {
     public static HashMap<String, Long> getWorldwideLanguageSpeakers() {
         List<Country> countryList = World.getInstance().getCountries();
         HashMap<String, Double> languagePopulations = new HashMap<>();
-        long totalPop;
 
         for(Country country : countryList) {
             for(CountryLanguage language : country.getLanguages()) {
@@ -123,28 +125,7 @@ public class U3LanguagesReport {
             languagePopulationsRounded.put(entry.getKey(), Math.round(entry.getValue()));
         }
 
-/*
-        for (Country country : countryList) {
-
-            for (CountryLanguage countryLanguage : countryLanguages) {
-            totalPop = 0L;
-                if (countryLanguage.getCountryCode().equals(country.getCode())) {
-                    totalPop += country.getPopulation();
-                }
-            }
-            if (!languagePopulations.containsKey(countryLanguage.getLanguage())) {
-                languagePopulations.put(countryLanguage.getLanguage(), totalPop);
-            } else {
-                languagePopulations.put(countryLanguage.getLanguage(),
-                        languagePopulations.get(countryLanguage.getLanguage()) + totalPop);
-            }
-
-        }
-        */
-
         return languagePopulationsRounded;
-
-
     }
 
 }
