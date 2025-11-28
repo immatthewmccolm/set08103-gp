@@ -14,23 +14,6 @@ import java.util.function.Function;
 
 public class HelperFunctions {
 
-    public static List<Integer> BubbleSortInteger(List<Integer> integerList) {
-        int temp;
-
-        for (int i = 0; i < integerList.size() - 1; i++) {
-            for (int j = 0; j < integerList.size() - i - 1; j++) {
-                if (integerList.get(j) <
-                        integerList.get(j + 1)) {
-                    temp = integerList.get(j);
-                    integerList.set(j, integerList.get(j + 1));
-                    integerList.set(j + 1, temp);
-                }
-            }
-        }
-
-        return integerList;
-    }
-
     public static List<City> BubbleSortCityByPop(List<City> cityList) {
         City temp;
 
