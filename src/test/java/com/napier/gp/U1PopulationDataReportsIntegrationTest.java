@@ -1,4 +1,4 @@
-//package com.napier.gp;
+package com.napier.gp;
 //
 //import com.napier.gp.world.Country;
 //import com.napier.gp.world.World;
@@ -11,7 +11,9 @@
 //import static org.junit.jupiter.api.Assertions.*;
 //
 //@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-//public class U1PopulationDataReportsIntegrationTest {
+public class U1PopulationDataReportsIntegrationTest {
+
+}
 //
 //    private final PrintStream originalOut = System.out;
 //    private ByteArrayOutputStream out;

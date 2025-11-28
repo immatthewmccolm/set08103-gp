@@ -122,36 +122,20 @@ public class HelperFunctions {
         return populations;
     }
 
-    public static HashMap<String, Long> getContinentPopulations() {
+    public static HashMap<String, Long> getGenericU2Populations(Function<Country, String> function) {
         List<Country> countries = World.getInstance().getCountries();
-        HashMap<String, Long> continentPopulations = new HashMap<>();
+        HashMap<String, Long> populations = new HashMap<>();
 
         for (Country country : countries) {
-            if (!continentPopulations.containsKey(country.getContinent())) {
-                continentPopulations.put(country.getContinent(), (long) country.getPopulation());
+            if (!populations.containsKey(function.apply(country))) {
+                populations.put(function.apply(country), (long) country.getPopulation());
             } else {
-                continentPopulations.put(country.getContinent(),
-                        continentPopulations.get(country.getContinent()) + (long) country.getPopulation());
+                populations.put(function.apply(country),
+                        populations.get(country.getRegion()) + (long) country.getPopulation());
             }
         }
 
-        return continentPopulations;
-    }
-
-    public static HashMap<String, Long> getRegionPopulations() {
-        List<Country> countries = World.getInstance().getCountries();
-        HashMap<String, Long> regionPopulations = new HashMap<>();
-
-        for (Country country : countries) {
-            if (!regionPopulations.containsKey(country.getRegion())) {
-                regionPopulations.put(country.getRegion(), (long) country.getPopulation());
-            } else {
-                regionPopulations.put(country.getRegion(),
-                        regionPopulations.get(country.getRegion()) + (long) country.getPopulation());
-            }
-        }
-
-        return regionPopulations;
+        return populations;
     }
 
     public static HashMap<String, Long> getCityDistrictPopulation() {

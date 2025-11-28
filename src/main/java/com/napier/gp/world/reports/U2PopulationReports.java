@@ -46,7 +46,7 @@ public class U2PopulationReports {
 
     // Prints a report on the total population of each of the 7 continents
     public static void printContinentPopulations() {
-        HashMap<String, Long> continentPopulations = HelperFunctions.getContinentPopulations();
+        HashMap<String, Long> continentPopulations = HelperFunctions.getGenericU2Populations(Country::getContinent);
 
         for(Map.Entry<String, Long> entry : continentPopulations.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
@@ -55,7 +55,7 @@ public class U2PopulationReports {
 
     //
     public static void printContinentPopulationByKey(String key) {
-        HashMap<String, Long> continentPopulations = HelperFunctions.getContinentPopulations();
+        HashMap<String, Long> continentPopulations = HelperFunctions.getGenericU2Populations(Country::getContinent);
 
         for(Map.Entry<String, Long> entry : continentPopulations.entrySet()) {
             if(entry.getKey().equals(key)) {
@@ -66,8 +66,7 @@ public class U2PopulationReports {
 
     // Prints a report on the total population of each of the regions of the world
     public static void printRegionPopulations() {
-        HashMap<String, Long> regionPopulations = HelperFunctions.getRegionPopulations();
-
+        HashMap<String, Long> regionPopulations = HelperFunctions.getGenericU2Populations(Country::getRegion);
         for(Map.Entry<String, Long> entry : regionPopulations.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
         }
@@ -75,7 +74,7 @@ public class U2PopulationReports {
 
     //
     public static void printRegionPopulationByKey(String key) {
-        HashMap<String, Long> regionPopulations = HelperFunctions.getRegionPopulations();
+        HashMap<String, Long> regionPopulations = HelperFunctions.getGenericU2Populations(Country::getRegion);
 
         for(Map.Entry<String, Long> entry : regionPopulations.entrySet()) {
             if(entry.getKey().equals(key)) {
