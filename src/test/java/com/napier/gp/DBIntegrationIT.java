@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *  - call Db.populateCity() and Db.TryPopulateWorld() and assert on real data.
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class DBIntegrationTest {
+public class DBIntegrationIT {
 
     // Db instance used by all tests
     private Db db;
