@@ -12,7 +12,7 @@ import java.util.Map;
 // Contains all code related to Use-Case 2: Produce population reports as a baseline to compare to other reports etc.
 public class U2PopulationReports {
     // Will call all Use Case 2 related reports in one function for ease of use
-    public static void printAll(Connection con) {
+    public static void printAll() {
         System.out.println("\nWorld Population:");
         printWorldPopulation();
 
