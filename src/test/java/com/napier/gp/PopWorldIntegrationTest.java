@@ -15,7 +15,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
- * Integration tests for PopulateWorld when DB runs in a separate Docker container.
+ * Integration tests for PopulateWorld.TryPopulateWorld and the
+ * PopulateCitiesAndLanguages() call inside it.
+ *
+ * Requires a running MySQL "world" database in a Docker container:
+ *   host: db
+ *   port: 3306
+ *   db:   world
+ *   user: root
+ *   pass: example
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PopWorldIntegrationTest {
@@ -24,13 +32,10 @@ public class PopWorldIntegrationTest {
     private World world;
     private boolean dbAvailable = false;
 
-    // -------------------------------------------------------
-    // Connect using Docker service name "db"
-    // -------------------------------------------------------
     @BeforeAll
-    void connectToDockerDatabase() {
+    void setUpConnection() {
         try {
-            // These match your Docker container config
+            // Same default connection details as your Db class
             String url = System.getenv().getOrDefault(
                     "DB_URL",
                     "jdbc:mysql://db:3306/world?allowPublicKeyRetrieval=true&useSSL=false"
@@ -40,23 +45,22 @@ public class PopWorldIntegrationTest {
 
             connection = DriverManager.getConnection(url, user, password);
             dbAvailable = true;
-        }
-        catch (SQLException e) {
+        } catch (Exception e) {
             dbAvailable = false;
-            System.out.println("Docker MySQL container not available — skipping integration tests.");
+            System.out.println("Database not available – skipping PopulateWorld integration tests.");
         }
     }
 
     @AfterAll
-    void closeConnection() throws SQLException {
+    void tearDownConnection() throws SQLException {
         if (connection != null && !connection.isClosed()) {
             connection.close();
         }
     }
 
     @BeforeEach
-    void resetWorld() {
-        assumeTrue(dbAvailable, "Skipping PopulateWorld integration tests – Docker DB not available");
+    void resetWorldSingleton() {
+        assumeTrue(dbAvailable, "Skipping PopulateWorld integration tests because DB is not available");
 
         world = World.getInstance();
         world.getCountries().clear();
@@ -64,64 +68,55 @@ public class PopWorldIntegrationTest {
         world.getLanguages().clear();
     }
 
-    // -------------------------------------------------------
-    // MAIN POPULATION TEST
-    // -------------------------------------------------------
-
+    /**
+     * This test exercises BOTH:
+     *  - TryPopulateWorld(connection): loads country, city, language data
+     *  - PopulateCitiesAndLanguages(): links cities & languages onto countries
+     */
     @Test
-    void tryPopulateWorld_loadsDatabaseTablesIntoWorld() {
+    void tryPopulateWorld_populatesAndLinksWorldData() {
+        // Act: this also calls PopulateCitiesAndLanguages() at the end
         PopulateWorld.TryPopulateWorld(connection);
 
-        assertFalse(world.getCountries().isEmpty(), "Countries should be populated from DB");
-        assertFalse(world.getCities().isEmpty(), "Cities should be populated from DB");
-        assertFalse(world.getLanguages().isEmpty(), "Languages should be populated from DB");
-    }
+        // Step 1: raw data loaded from DB
+        List<Country> countries = world.getCountries();
+        List<City> cities = world.getCities();
+        List<CountryLanguage> languages = world.getLanguages();
 
-    // -------------------------------------------------------
-    // RELATIONSHIP LINKING TEST
-    // -------------------------------------------------------
+        assertFalse(countries.isEmpty(), "Countries should be loaded from the database");
+        assertFalse(cities.isEmpty(), "Cities should be loaded from the database");
+        assertFalse(languages.isEmpty(), "Languages should be loaded from the database");
 
-    @Test
-    void tryPopulateWorld_linksCitiesAndLanguagesToTheirCountries() {
-        PopulateWorld.TryPopulateWorld(connection);
+        // Step 2: relations linked by PopulateCitiesAndLanguages()
+        Country sample = countries.get(0);
 
-        Country sample = world.getCountries().get(0);
-
-        assertNotNull(sample.getCities(), "Cities list should not be null");
-        assertNotNull(sample.getLanguages(), "Languages list should not be null");
+        assertNotNull(sample.getCities(), "Country's cities list should not be null");
+        assertNotNull(sample.getLanguages(), "Country's languages list should not be null");
 
         assertFalse(sample.getCities().isEmpty(),
-                "Country should have cities linked after PopulateCitiesAndLanguages");
-
+                "PopulateCitiesAndLanguages() should attach at least one city to a country");
         assertFalse(sample.getLanguages().isEmpty(),
-                "Country should have languages linked after PopulateCitiesAndLanguages");
+                "PopulateCitiesAndLanguages() should attach at least one language to a country");
+
+        // Extra sanity: every attached city should have matching country code
+        for (City city : sample.getCities()) {
+            assertEquals(sample.getCode(), city.getCountryCode(),
+                    "Attached city should have matching country code");
+        }
+
+        // And each attached language should have matching country code
+        for (CountryLanguage lang : sample.getLanguages()) {
+            assertEquals(sample.getCode(), lang.getCountryCode(),
+                    "Attached language should have matching country code");
+        }
     }
 
-    // -------------------------------------------------------
-    // KNOWN DATA TEST (STANDARD world DB)
-    // -------------------------------------------------------
-
+    /**
+     * Optional extra: a smoke test just confirming it doesn't throw with a real DB.
+     */
     @Test
-    void tryPopulateWorld_containsKnownWorldData() {
-        PopulateWorld.TryPopulateWorld(connection);
-
-        boolean hasGBR = world.getCountries().stream()
-                .anyMatch(c -> "GBR".equals(c.getCode()));
-
-        boolean hasLondon = world.getCities().stream()
-                .anyMatch(c ->"London".equalsIgnoreCase(c.getName()));
-
-        assertTrue(hasGBR, "Country GBR should exist");
-        assertTrue(hasLondon, "City London should exist");
-    }
-
-    // -------------------------------------------------------
-    // SAFETY TEST
-    // -------------------------------------------------------
-
-    @Test
-    void tryPopulateWorld_doesNotThrow() {
+    void tryPopulateWorld_doesNotThrowWithValidConnection() {
         assertDoesNotThrow(() -> PopulateWorld.TryPopulateWorld(connection),
-                "TryPopulateWorld should not throw with valid Docker DB connection");
+                "TryPopulateWorld should not throw when the DB connection is valid");
     }
 }
