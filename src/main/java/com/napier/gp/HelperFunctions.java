@@ -128,10 +128,10 @@ public class HelperFunctions {
 
         for (Country country : countries) {
             if (!populations.containsKey(function.apply(country))) {
-                populations.put(function.apply(country), (long) country.getPopulation());
+                populations.put(function.apply(country), (long)country.getPopulation());
             } else {
                 populations.put(function.apply(country),
-                        populations.get(country.getRegion()) + (long) country.getPopulation());
+                        populations.get(function.apply(country)) + (long)country.getPopulation());
             }
         }
 
