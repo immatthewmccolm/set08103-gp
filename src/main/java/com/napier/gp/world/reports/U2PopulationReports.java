@@ -1,5 +1,6 @@
 package com.napier.gp.world.reports;
 
+import com.napier.gp.HelperFunctions;
 import com.napier.gp.world.City;
 import com.napier.gp.world.Country;
 import com.napier.gp.world.World;
@@ -45,18 +46,7 @@ public class U2PopulationReports {
 
     // Prints a report on the total population of each of the 7 continents
     public static void printContinentPopulations() {
-        List<Country> countries = World.getInstance().getCountries();
-        HashMap<String, Long> continentPopulations = new HashMap<>();
-
-        for(Country country : countries) {
-            if(!continentPopulations.containsKey(country.getContinent())) {
-                continentPopulations.put(country.getContinent(), (long)country.getPopulation());
-            }
-            else {
-                continentPopulations.put(country.getContinent(),
-                        continentPopulations.get(country.getContinent()) + (long)country.getPopulation());
-            }
-        }
+        HashMap<String, Long> continentPopulations = HelperFunctions.getContinentPopulations();
 
         for(Map.Entry<String, Long> entry : continentPopulations.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
@@ -65,18 +55,7 @@ public class U2PopulationReports {
 
     //
     public static void printContinentPopulationByKey(String key) {
-        List<Country> countries = World.getInstance().getCountries();
-        HashMap<String, Long> continentPopulations = new HashMap<>();
-
-        for(Country country : countries) {
-            if(!continentPopulations.containsKey(country.getContinent())) {
-                continentPopulations.put(country.getContinent(), (long)country.getPopulation());
-            }
-            else {
-                continentPopulations.put(country.getContinent(),
-                        continentPopulations.get(country.getContinent()) + (long)country.getPopulation());
-            }
-        }
+        HashMap<String, Long> continentPopulations = HelperFunctions.getContinentPopulations();
 
         for(Map.Entry<String, Long> entry : continentPopulations.entrySet()) {
             if(entry.getKey().equals(key)) {
@@ -87,18 +66,7 @@ public class U2PopulationReports {
 
     // Prints a report on the total population of each of the regions of the world
     public static void printRegionPopulations() {
-        List<Country> countries = World.getInstance().getCountries();
-        HashMap<String, Long> regionPopulations = new HashMap<>();
-
-        for(Country country : countries) {
-            if(!regionPopulations.containsKey(country.getRegion())) {
-                regionPopulations.put(country.getRegion(), (long)country.getPopulation());
-            }
-            else {
-                regionPopulations.put(country.getRegion(),
-                        regionPopulations.get(country.getRegion()) + (long)country.getPopulation());
-            }
-        }
+        HashMap<String, Long> regionPopulations = HelperFunctions.getRegionPopulations();
 
         for(Map.Entry<String, Long> entry : regionPopulations.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
@@ -107,18 +75,7 @@ public class U2PopulationReports {
 
     //
     public static void printRegionPopulationByKey(String key) {
-        List<Country> countries = World.getInstance().getCountries();
-        HashMap<String, Long> regionPopulations = new HashMap<>();
-
-        for(Country country : countries) {
-            if(!regionPopulations.containsKey(country.getRegion())) {
-                regionPopulations.put(country.getRegion(), (long)country.getPopulation());
-            }
-            else {
-                regionPopulations.put(country.getRegion(),
-                        regionPopulations.get(country.getRegion()) + (long)country.getPopulation());
-            }
-        }
+        HashMap<String, Long> regionPopulations = HelperFunctions.getRegionPopulations();
 
         for(Map.Entry<String, Long> entry : regionPopulations.entrySet()) {
             if(entry.getKey().equals(key)) {
@@ -145,18 +102,7 @@ public class U2PopulationReports {
 
     // Prints a report on the total population of each of the districts of the world
     public static void printDistrictPopulations() {
-        List<City> cities = World.getInstance().getCities();
-        HashMap<String, Long> districtPopulations = new HashMap<>();
-
-        for(City city : cities) {
-            if(!districtPopulations.containsKey(city.getDistrict())) {
-                districtPopulations.put(city.getDistrict(), (long)city.getPopulation());
-            }
-            else {
-                districtPopulations.put(city.getDistrict(),
-                        districtPopulations.get(city.getDistrict()) + (long)city.getPopulation());
-            }
-        }
+        HashMap<String, Long> districtPopulations = HelperFunctions.getCityDistrictPopulation();
 
         for(Map.Entry<String, Long> entry : districtPopulations.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
@@ -165,18 +111,7 @@ public class U2PopulationReports {
 
     //
     public static void printDistrictPopulationByKey(String key) {
-        List<City> cities = World.getInstance().getCities();
-        HashMap<String, Long> districtPopulations = new HashMap<>();
-
-        for(City city : cities) {
-            if(!districtPopulations.containsKey(city.getDistrict())) {
-                districtPopulations.put(city.getDistrict(), (long)city.getPopulation());
-            }
-            else {
-                districtPopulations.put(city.getDistrict(),
-                        districtPopulations.get(city.getDistrict()) + (long)city.getPopulation());
-            }
-        }
+        HashMap<String, Long> districtPopulations = HelperFunctions.getCityDistrictPopulation();
 
         for(Map.Entry<String, Long> entry : districtPopulations.entrySet()) {
             if(entry.getKey().equals(key)) {

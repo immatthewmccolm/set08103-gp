@@ -17,9 +17,9 @@ public class HelperFunctions {
     public static List<Integer> BubbleSortInteger(List<Integer> integerList) {
         int temp;
 
-        for(int i = 0; i < integerList.size() - 1; i++) {
-            for(int j = 0; j < integerList.size() - i - 1; j++) {
-                if(integerList.get(j) <
+        for (int i = 0; i < integerList.size() - 1; i++) {
+            for (int j = 0; j < integerList.size() - i - 1; j++) {
+                if (integerList.get(j) <
                         integerList.get(j + 1)) {
                     temp = integerList.get(j);
                     integerList.set(j, integerList.get(j + 1));
@@ -34,9 +34,9 @@ public class HelperFunctions {
     public static List<City> BubbleSortCityByPop(List<City> cityList) {
         City temp;
 
-        for(int i = 0; i < cityList.size() - 1; i++) {
-            for(int j = 0; j < cityList.size() - i - 1; j++) {
-                if(cityList.get(j).getPopulation() <
+        for (int i = 0; i < cityList.size() - 1; i++) {
+            for (int j = 0; j < cityList.size() - i - 1; j++) {
+                if (cityList.get(j).getPopulation() <
                         cityList.get(j + 1).getPopulation()) {
                     temp = cityList.get(j);
                     cityList.set(j, cityList.get(j + 1));
@@ -51,9 +51,9 @@ public class HelperFunctions {
     public static List<Country> BubbleSortCountryByPop(List<Country> countryList) {
         Country temp;
 
-        for(int i = 0; i < countryList.size() - 1; i++) {
-            for(int j = 0; j < countryList.size() - i - 1; j++) {
-                if(countryList.get(j).getPopulation() <
+        for (int i = 0; i < countryList.size() - 1; i++) {
+            for (int j = 0; j < countryList.size() - i - 1; j++) {
+                if (countryList.get(j).getPopulation() <
                         countryList.get(j + 1).getPopulation()) {
                     temp = countryList.get(j);
                     countryList.set(j, countryList.get(j + 1));
@@ -69,12 +69,11 @@ public class HelperFunctions {
         HashMap<String, List<Country>> populations = new HashMap<>();
         List<Country> tempList;
 
-        for(Country country : countries) {
-            if(!populations.containsKey(function.apply(country))) {
+        for (Country country : countries) {
+            if (!populations.containsKey(function.apply(country))) {
                 populations.put(function.apply(country),
                         new ArrayList<>(Arrays.asList((country))));
-            }
-            else {
+            } else {
                 tempList = populations.get(function.apply(country));
                 tempList.add(country);
                 populations.put(function.apply(country), tempList);
@@ -89,9 +88,9 @@ public class HelperFunctions {
         List<City> tempList;
 
 
-        for(Country country : countries) {
-            for(City city : country.getCities()) {
-                if(!populations.containsKey(function.apply(country))) {
+        for (Country country : countries) {
+            for (City city : country.getCities()) {
+                if (!populations.containsKey(function.apply(country))) {
                     populations.put(function.apply(country),
                             new ArrayList<>(Arrays.asList(city)));
                 } else {
@@ -109,8 +108,8 @@ public class HelperFunctions {
         HashMap<String, List<City>> populations = new HashMap<>();
         List<City> tempList;
 
-        for(City city : cities) {
-            if(!populations.containsKey(function.apply(city))) {
+        for (City city : cities) {
+            if (!populations.containsKey(function.apply(city))) {
                 populations.put(function.apply(city),
                         new ArrayList<>(Arrays.asList(city)));
             } else {
@@ -122,4 +121,54 @@ public class HelperFunctions {
 
         return populations;
     }
+
+    public static HashMap<String, Long> getContinentPopulations() {
+        List<Country> countries = World.getInstance().getCountries();
+        HashMap<String, Long> continentPopulations = new HashMap<>();
+
+        for (Country country : countries) {
+            if (!continentPopulations.containsKey(country.getContinent())) {
+                continentPopulations.put(country.getContinent(), (long) country.getPopulation());
+            } else {
+                continentPopulations.put(country.getContinent(),
+                        continentPopulations.get(country.getContinent()) + (long) country.getPopulation());
+            }
+        }
+
+        return continentPopulations;
+    }
+
+    public static HashMap<String, Long> getRegionPopulations() {
+        List<Country> countries = World.getInstance().getCountries();
+        HashMap<String, Long> regionPopulations = new HashMap<>();
+
+        for (Country country : countries) {
+            if (!regionPopulations.containsKey(country.getRegion())) {
+                regionPopulations.put(country.getRegion(), (long) country.getPopulation());
+            } else {
+                regionPopulations.put(country.getRegion(),
+                        regionPopulations.get(country.getRegion()) + (long) country.getPopulation());
+            }
+        }
+
+        return regionPopulations;
+    }
+
+    public static HashMap<String, Long> getCityDistrictPopulation() {
+        List<City> cities = World.getInstance().getCities();
+        HashMap<String, Long> districtPopulations = new HashMap<>();
+
+        for(City city : cities) {
+            if(!districtPopulations.containsKey(city.getDistrict())) {
+                districtPopulations.put(city.getDistrict(), (long)city.getPopulation());
+            }
+            else {
+                districtPopulations.put(city.getDistrict(),
+                        districtPopulations.get(city.getDistrict()) + (long)city.getPopulation());
+            }
+        }
+
+        return districtPopulations;
+    }
+
 }
