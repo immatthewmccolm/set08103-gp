@@ -19,6 +19,8 @@ jobs:
         run: mvn -Dtest=com.napier.gp.U2UnitTest test
       - name: U1 Unit Tests
         run: mvn -Dtest=com.napier.gp.U3UnitTest test
+      - name: Populate World Unit Test
+        run: mvn -Dtest=com.napier.gp.PopWorldUnitTest test
       - name: List dirs
         run: |
           cd ./target/site/jacoco
