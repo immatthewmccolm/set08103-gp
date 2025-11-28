@@ -17,13 +17,6 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 /**
  * Integration tests for PopulateWorld.TryPopulateWorld and the
  * PopulateCitiesAndLanguages() call inside it.
- *
- * Requires a running MySQL "world" database in a Docker container:
- *   host: db
- *   port: 3306
- *   db:   world
- *   user: root
- *   pass: example
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PopWorldIntegrationTest {
