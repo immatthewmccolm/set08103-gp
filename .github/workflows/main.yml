@@ -54,7 +54,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
   build:
-    name: Check it works
+    name: Build and Start using docker-compose
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
